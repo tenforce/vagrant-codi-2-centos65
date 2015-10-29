@@ -5,6 +5,11 @@
 INSTALLDIR=`pwd`
 
 ########################################################################
+
+MAVEN_VERSION=2.0.11
+JAVA_VERSION=1.7.0
+
+########################################################################
 # Install maven (2.0.11 version of maven is used).
 
 wget_n() {
@@ -34,9 +39,6 @@ install_docker() {
     usermod -aG docker vagrant
     service docker start
 }
-
-#########################################################################
-# Install Java (1.6 version of Java)
 
 install_java() {
     yum -y install yum-priorities

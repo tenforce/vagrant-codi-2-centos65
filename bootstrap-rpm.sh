@@ -34,7 +34,12 @@ yum -y install dos2unix firefox emacs autoconf vim make wget curl gawk bison m4
 yum -y install ntp ntpdate ntp-doc
 chkconfig ntpd on
 
-install_components;
+#################################################################
+
+export PATH="/vagrant:${PATH}"
+pushd /vagrant
+ install_uv_components.sh;
+popd
 
 #################################################################
 # Setting up the browser

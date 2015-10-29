@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   config.vm.provider "virtualbox" do |vb|
-      vb.name = "vagrant-codi-2"
+      vb.name = "vagrant-codi-2-centos65"
       vb.gui = true
       vb.customize ["modifyvm", :id, "--memory", 6000]
       vb.customize ["modifyvm", :id, "--vram", 64]

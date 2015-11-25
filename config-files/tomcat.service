@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# tomcat7     This shell script takes care of starting and stopping Tomcat
+#
+# chkconfig: - 80 20
+#
+### BEGIN INIT INFO
+# Provides: tomcat7
+# Required-Start: $network $syslog
+# Required-Stop: $network $syslog
+# Default-Start:
+# Default-Stop:
+# Description: Release implementation for Servlet 2.5 and JSP 2.1
+# Short-Description: start and stop tomcat
+### END INIT INFO
+
+JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
+export JAVA_HOME  
+PATH="$JAVA_HOME/bin:$PATH"
+export PATH  
+CATALINA_HOME=/usr/local/tomcat7
+      
+case $1 in  
+ start)  
+  sh $CATALINA_HOME/bin/startup.sh 
+  ;;   
+ stop)     
+  sh $CATALINA_HOME/bin/shutdown.sh  
+  ;;   
+ restart)  
+  sh $CATALINA_HOME/bin/shutdown.sh  
+  sh $CATALINA_HOME/bin/startup.sh 
+  ;;   
+esac      
+exit 0;

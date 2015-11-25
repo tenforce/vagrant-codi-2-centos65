@@ -1,23 +1,29 @@
 #!/usr/bin/env bash
 #################################################################
 yum -y install epel-release
-# rpm -Uvh http://vault.centos.org/6.4/cr/x86_64/Packages/kernel-devel-2.6.32-431.el6.x86_64.rpm
-yum -y install gcc gcc-c++ gmake autoconf automake flex openssl git make bzip2 perl
-yum -y install kernel-devel kernel-headers dkms
+yum -y install yum-plugin-priorities
+yum -y install dkms gcc gcc-c++ gmake autoconf automake flex openssl git make bzip2 perl
 yum -y groupinstall "Development Tools"
+yum -y install kernel-devel kernel-headers 
 yum -y update 
+
+#################################################################
+# try to clear the OpenGL rebuild error (guest additions for 5.0.10)
+# http://www.unixmen.com/fix-building-opengl-support-module-failed-error-virtualbox/
+for i in /usr/src/kernels/2.6.32*/include/drm
+do
+  pushd $i
+    ln -s /usr/include/drm/drm.h drm.h  
+    ln -s /usr/include/drm/drm_sarea.h drm_sarea.h  
+    ln -s /usr/include/drm/drm_mode.h drm_mode.h  
+    ln -s /usr/include/drm/drm_fourcc.h drm_fourcc.h
+ popd
+done
 
 #################################################################
 yum -y groupinstall "Desktop" "Desktop Platform" "X Window System" "Fonts"
 yum -y groupinstall "Graphical Administration Tools"
 yum -y groupinstall "Internet Browser"
-# yum -y groupinstall "General Purpose Desktop"
-
-#################################################################
-# Install all the alien tools which might be needed.
-# rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
-# rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/alien-8.90-3.el7.nux.noarch.rpm
-# yum -y update && yum install alien
 
 #################################################################
 # Check boot init (change to graphical)
@@ -42,8 +48,8 @@ popd
 #################################################################
 # Setting up the browser to reflect the development homepage.
 echo "****** Setting homepage of firefox *******"
-echo "user_pref(\"browser.startup.homepage\", \"file:///vagrant/homepage.html\");" >> /usr/lib64/firefox/defaults/syspref.js
-echo "user_pref(\"browser.startup.homepage\", \"file:///vagrant/homepage.html\");" >> /usr/lib64/firefox/defaults/preferences/all-redhat.js
+echo "pref(\"startup.homepage_override_url\", \"file:///vagrant/homepage.html\");" >> /usr/lib64/firefox/defaults/preferences/all-redhat.js
+echo "pref(\"startup.homepage_welcome_url\", \"file:///vagrant/homepage.html\");" >> /usr/lib64/firefox/defaults/preferences/all-redhat.js
 
 #################################################################
 echo "****** Bootstraping completed ******"

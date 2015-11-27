@@ -9,6 +9,10 @@ The system will run the following main software components:
 - Tomcat7 & Java7 (Installed packages, assuming [[https://grips.semantic-web.at/pages/viewpage.action?pageId=50929588][DPU]] development)
 
 It has been tested using the setup described in "Before starting".
+The installation process is two step (at present):
+
+- Build the VM (using Vagrant)
+- Install the UV software on the VM
 
 *WARNING:* THIS MACHINE SHOULD NOT BE CONNECTED TO THE INTERNET
 WITHOUT FIRST CHANGING *ALL* THE DEFAULT ACCOUNT/PASSWORD DETAILS.
@@ -65,6 +69,26 @@ Then it should be possible to use the virtual machine:
   Normally, this should present you a [[file:homepage.html][homepage]] from which you can
   access the installed software (all account details and development
   information are provided there).
+
+* Installing UV on the VM
+This is intended to mimic the installation process on a clean system
+(such as one created by the vagrant up command). There is no backing
+up of the system, so a backup should be made before running this
+command. The commands to run should be:
+
+#+BEGIN_QUOTE
+cd /vagrant
+sudo ./install_uv_components.sh
+#+END_QUOTE
+
+This will take a while, but should result in the system being updated
+with UnifiedViews installed and running (*Note* if some of the sites
+are unavailable for downloading, then the downloading and installation
+will fail).
+
+The installation script will maintain a copy of the downloaded files
+in the /vagrant/downloads directory with a view to reducting the cost
+in the event of a rebuild of the systsem.
 
 * Notes:
 - Depending on the host system, it seems that the network connections

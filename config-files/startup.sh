@@ -22,10 +22,13 @@ cp /usr/local/unifiedviews/packages/unifiedviews.war /usr/local/tomcat7/webapps/
 cp /usr/local/unifiedviews/packages/master.war /usr/local/tomcat7/webapps/
 
 # Start Tomcat
+echo "Tomcat: Starting"
 chmod +x /usr/local/tomcat7/bin/setenv.sh
 service tomcat7 start
+echo "Tomcat: Started"
 
 # Wait till Tomcat startup has finished and webapps are started (max 3 minutes)
+echo "Wait for webapps to startup"
 i=0
 until $(curl --output /dev/null --silent --head --fail --user $MASTER_USER:$MASTER_PASSWORD http://localhost:8080/master/api/1/pipelines) || [ "$i" -gt 36 ]; do
     i=$((i+1))
@@ -33,7 +36,12 @@ until $(curl --output /dev/null --silent --head --fail --user $MASTER_USER:$MAST
     sleep 5
 done
 
-# Add DPUs
-for f in /usr/local/unifiedviews/dpus/*.jar; do bash /usr/local/unifiedviews/add-dpu.sh "$f"; done
+echo "Done ... loading DPUs"
 
-tail -f /var/log/tomcat7/catalina.out
+# Add DPUs
+for f in /usr/local/unifiedviews/dpus/*.jar;
+do
+    bash /usr/local/unifiedviews/add-dpu.sh "$f";
+done
+
+tail -f /usr/local/tomcat7/logs/catalina.out

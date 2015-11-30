@@ -2,20 +2,20 @@
 #################################################################
 yum -y install epel-release
 yum -y install yum-plugin-priorities
-yum -y install dkms gcc gcc-c++ gmake autoconf automake flex openssl git make bzip2 perl
-yum -y groupinstall "Development Tools"
-yum -y install kernel-devel kernel-headers 
 yum -y update 
+yum -y install dkms gcc gcc-c++ gmake autoconf automake flex openssl git make bzip2 perl
+yum -y install patch binutils patch libgomp glibc-headers glibc-devel kernel-devel kernel-headers dos2unix
+yum -y groupinstall "Development Tools"
 
 #################################################################
 # try to clear the OpenGL rebuild error (guest additions for 5.0.10)
 # http://www.unixmen.com/fix-building-opengl-support-module-failed-error-virtualbox/
-for i in /usr/src/kernels/2.6.32*/include/drm
+for i in /usr/src/kernels/2.6.32*/include/drm/
 do
   pushd $i
-    ln -s /usr/include/drm/drm.h drm.h  
-    ln -s /usr/include/drm/drm_sarea.h drm_sarea.h  
-    ln -s /usr/include/drm/drm_mode.h drm_mode.h  
+    ln -s /usr/include/drm/drm.h drm.h
+    ln -s /usr/include/drm/drm_sarea.h drm_sarea.h
+    ln -s /usr/include/drm/drm_mode.h drm_mode.h
     ln -s /usr/include/drm/drm_fourcc.h drm_fourcc.h
  popd
 done
@@ -30,8 +30,7 @@ yum -y groupinstall "Internet Browser"
 sed -i -e 's/:3:/:5:/g' /etc/inittab
 
 #################################################################
-# Install decent editor and some other obvious bits
-yum -y install ntp ntpdate ntp-doc
+yum -y install ntp ntpdate ntp-doc 
 chkconfig ntpd on
 
 #################################################################
@@ -41,6 +40,8 @@ chkconfig ntpd on
 
 export PATH="/vagrant:${PATH}"
 pushd /vagrant
+ # make sure the command files are all acceptable (not dos format)
+ dos2unix *.sh
  echo "****** Run the UV (CentOS 6.5) Installation Script ******"
  # install_uv_components.sh
 popd

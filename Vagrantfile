@@ -7,7 +7,6 @@
 # you're doing.
 Vagrant.configure(2) do |config|
   config.vm.box = "box-cutter/centos65-desktop"
-  # config.vbguest.auto_update = false
   
   # Attempt to cache downloaded files (only if plugin is present).
   if Vagrant.has_plugin?("vagrant-cachier")
@@ -31,5 +30,6 @@ Vagrant.configure(2) do |config|
       vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
       vb.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
+      vb.customize ["modifyvm", :id, "--accelerate3d", "off"]
   end
 end

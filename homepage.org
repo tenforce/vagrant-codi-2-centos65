@@ -30,17 +30,44 @@ behind a firewall, etc.), they are *not* intended to be directly
 connected to the internet, without changes to all the standard user
 accounts, public passwords, etc.
 
+* Installing UV on the VM
+This vagrant box is intended to mimic the approach which will be used
+to installation on a clean system (such as one created by the *vagrant
+up* command). There is no backing up of the system (none should be
+needed initially). The commands to run should be:
+
+#+BEGIN_QUOTE
+cd /vagrant
+sudo ./install_uv_components.sh /email-account/ /email-password/
+#+END_QUOTE
+
+This will take a while, but should result in the system being updated
+with UnifiedViews installed and running (*Note* if some of the sites
+are unavailable for downloading, then the downloading and installation
+will fail).
+
+The /email-account/ and /email-password/ arguments will be used to
+replace the default settings for sending emails during the pipeline
+execution. If these are empty then nothing will be used (it will still
+be necessary to update the default accounts in the interface. e.g. the
+admin account email address).
+
+The installation script will maintain a copy of the downloaded files
+in the /vagrant/downloads directory with a view to reducting the cost
+in the event of a rebuild of the systsem (downloading can be switched
+off using a variable at the top of the script).
+
 * Environment Details  
-| *Component*    | *Version* | *Pointer*               | *Notes*               |
-|----------------+-----------+-------------------------+-----------------------|
+| *Component*    | *Version* | *Pointer*               | *Notes*                     |
+|----------------+-----------+-------------------------+-----------------------------|
 | CentOS         |       6.5 | [[xx]]                      | Kernel 2.6.32[fn:1], 64 bit |
-| UnifiedViews   |     2.1.3 | [[http://unifiedviews.eu/]] |                       |
-| MySQL          |           |                         |                       |
-| Firefox        |           |                         |                       |
-| Java           |       1.7 |                         |                       |
-| Tomcat         |         7 |                         |                       |
-| Maven          |           |                         |                       |
-| common editors |         - |                         | emacs, vim, nano      |
+| UnifiedViews   |     2.1.3 | [[http://unifiedviews.eu/]] |                             |
+| MySQL          |           |                         |                             |
+| Firefox        |    38.4.0 |                         |                             |
+| Java           |       1.7 |                         |                             |
+| Tomcat         |    7.0.65 |                         |                             |
+| Maven          |     3.3.9 |                         |                             |
+| common editors |         - |                         | emacs, vim, nano            |
 
 * Account Details
 

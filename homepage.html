@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>CODI-2 - Development Environment</title>
-<!-- 2015-11-30 ma 18:00 -->
+<!-- 2015-12-01 di 15:28 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Paul Massey" />
@@ -149,8 +149,9 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#sec-1">1. Introduction</a></li>
 <li><a href="#sec-2">2. Development Security</a></li>
-<li><a href="#sec-3">3. Environment Details</a></li>
-<li><a href="#sec-4">4. Account Details</a></li>
+<li><a href="#sec-3">3. Installing UV on the VM</a></li>
+<li><a href="#sec-4">4. Environment Details</a></li>
+<li><a href="#sec-5">5. Account Details</a></li>
 </ul>
 </div>
 </div>
@@ -210,8 +211,49 @@ accounts, public passwords, etc.
 </div>
 
 <div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> Environment Details</h2>
+<h2 id="sec-3"><span class="section-number-2">3</span> Installing UV on the VM</h2>
 <div class="outline-text-2" id="text-3">
+<p>
+This vagrant box is intended to mimic the approach which will be used
+to installation on a clean system (such as one created by the <b>vagrant
+up</b> command). There is no backing up of the system (none should be
+needed initially). The commands to run should be:
+</p>
+
+<blockquote>
+<p>
+cd <i>vagrant
+sudo ./install<sub>uv</sub><sub>components</sub>.sh /email-account</i> <i>email-password</i>
+</p>
+</blockquote>
+
+<p>
+This will take a while, but should result in the system being updated
+with UnifiedViews installed and running (<b>Note</b> if some of the sites
+are unavailable for downloading, then the downloading and installation
+will fail).
+</p>
+
+<p>
+The <i>email-account</i> and <i>email-password</i> arguments will be used to
+replace the default settings for sending emails during the pipeline
+execution. If these are empty then nothing will be used (it will still
+be necessary to update the default accounts in the interface. e.g. the
+admin account email address).
+</p>
+
+<p>
+The installation script will maintain a copy of the downloaded files
+in the /vagrant/downloads directory with a view to reducting the cost
+in the event of a rebuild of the systsem (downloading can be switched
+off using a variable at the top of the script).
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Environment Details</h2>
+<div class="outline-text-2" id="text-4">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -256,7 +298,7 @@ accounts, public passwords, etc.
 
 <tr>
 <td class="left">Firefox</td>
-<td class="right">&#xa0;</td>
+<td class="right">38.4.0</td>
 <td class="left">&#xa0;</td>
 <td class="left">&#xa0;</td>
 </tr>
@@ -270,14 +312,14 @@ accounts, public passwords, etc.
 
 <tr>
 <td class="left">Tomcat</td>
-<td class="right">7</td>
+<td class="right">7.0.65</td>
 <td class="left">&#xa0;</td>
 <td class="left">&#xa0;</td>
 </tr>
 
 <tr>
 <td class="left">Maven</td>
-<td class="right">&#xa0;</td>
+<td class="right">3.3.9</td>
 <td class="left">&#xa0;</td>
 <td class="left">&#xa0;</td>
 </tr>
@@ -293,9 +335,9 @@ accounts, public passwords, etc.
 </div>
 </div>
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4"><span class="section-number-2">4</span> Account Details</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Account Details</h2>
+<div class="outline-text-2" id="text-5">
 <ul class="org-ul">
 <li><a href="http://localhost:8080/unifiedviews">Unified Views Account Details</a>::
 
@@ -343,7 +385,7 @@ Hence using docker is not possible.
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Paul Massey</p>
-<p class="date">Created: 2015-11-30 ma 18:00</p>
+<p class="date">Created: 2015-12-01 di 15:28</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.7c)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>

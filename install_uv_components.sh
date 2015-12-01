@@ -235,7 +235,7 @@ install_uv() {
 	pushd /usr/local/unifiedviews
          touch logs/frontend.log logs/frontend_err.log
 	 cp -r ${INSTALLDIR}/downloads/docker-unified-views/packages .
-	 if [ "$MUSERNAME" != "" ] then
+	 if [ "$MUSERNAME" != "" ] ; then
 	    cp ${INSTALLDIR}/config-files/email-config.properties ${INSTALLDIR}/config-files/email-config.properties.new
 	    sed -i "s/%MAIL_USERNAME%/$MUSERNAME/g" ${INSTALLDIR}/config-files/email-config.properties.new
 	    sed -i "s/%MAIL_PASSWORD%/$MPASSWORD/g" ${INSTALLDIR}/config-files/email-config.properties.new
@@ -280,12 +280,12 @@ smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
 smtp_sasl_security_options = noanonymous
 smtp_tls_CAfile = /etc/postfix/cacert.pem
 smtp_use_tls = yes" >> /etc/postfix/main.cf
-	echo "[smtp.gmail.com]:587    ${MUSERNAME}@gmail.com:${MPASSWORD}" > /etc/postfix/sasl_passwd
+	echo "[smtp.gmail.com]:587    ${MUSERNAME}:${MPASSWORD}" > /etc/postfix/sasl_passwd
 	chmod 400 /etc/postfix/sasl_passwd
 	postmap /etc/postfix/sasl_passwd
 	cat /etc/ssl/certs/ca*.pem | sudo tee -a /etc/postfix/cacert.pem
 	/etc/init.d/postfix reload
-	echo "Test mail from postfix" | mail -s "Test Postfix" ${MAIL_USERNAME}@gmail.com
+	echo "Test mail from postfix" | mail -s "Test Postfix" ${MUSERNAME}
     fi
 }
 

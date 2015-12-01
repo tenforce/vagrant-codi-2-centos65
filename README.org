@@ -78,7 +78,7 @@ command. The commands to run should be:
 
 #+BEGIN_QUOTE
 cd /vagrant
-sudo ./install_uv_components.sh
+sudo ./install_uv_components.sh <email_account> <email_password>
 #+END_QUOTE
 
 This will take a while, but should result in the system being updated

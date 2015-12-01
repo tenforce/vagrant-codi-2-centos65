@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 #################################################################
+yum -y install dkms
 yum -y install epel-release
 yum -y install yum-plugin-priorities
 yum -y update 
-yum -y install dkms gcc gcc-c++ gmake autoconf automake flex openssl git make bzip2 perl
+yum -y install gcc gcc-c++ gmake autoconf automake flex openssl git make bzip2 perl
 yum -y install patch binutils patch libgomp glibc-headers glibc-devel kernel-devel kernel-headers dos2unix
 yum -y groupinstall "Development Tools"
 
@@ -41,7 +42,7 @@ chkconfig ntpd on
 export PATH="/vagrant:${PATH}"
 pushd /vagrant
  # make sure the command files are all acceptable (not dos format)
- dos2unix *.sh
+ dos2unix *.sh config-files/*
  echo "****** Run the UV (CentOS 6.5) Installation Script ******"
  # install_uv_components.sh
 popd

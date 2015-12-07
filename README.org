@@ -46,8 +46,8 @@ other GNU open-source tools.
 
 On the command line:
 
-- *git clone https://github.com/tenforce/vagrant-unifiedviews2.x-ubuntu15.04.git*
-- *cd vagrant-unifiedviews2.x-ubuntu15.04*
+- *git clone https://github.com/tenforce/vagrant-codi-2-centos65.git*
+- *cd vagrant-codi-2-centos65*
 - *vagrant plugin install vagrant-vbguest*
 - *vagrant plugin install cachier*
 - *vagrant up* 
@@ -78,7 +78,7 @@ command. The commands to run should be:
 
 #+BEGIN_QUOTE
 cd /vagrant
-sudo ./install_uv_components.sh <email_account> <email_password>
+sudo ./install_uv_components.sh /email-account/ /email-password/
 #+END_QUOTE
 
 This will take a while, but should result in the system being updated
@@ -90,7 +90,7 @@ The installation script will maintain a copy of the downloaded files
 in the /vagrant/downloads directory with a view to reducting the cost
 in the event of a rebuild of the systsem.
 
-* Notes:
-- Depending on the host system, it seems that the network connections
-  settings sometimes cause problems (*halt*, wait a while and *up*
-  again, normally clears the problem).
+* Notes
+Depending on the host system, it seems that the network connections
+settings sometimes cause problems (*halt*, wait a while and *up*
+again, normally clears the problem).

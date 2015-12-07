@@ -7,6 +7,9 @@
 # you're doing.
 Vagrant.configure(2) do |config|
   config.vm.box = "box-cutter/centos65-desktop"
+  # switch off the vbguest updates since we are running the latest.
+  config.vbguest.auto_update = false
+  config.vbguest.no_remote = true  
   
   # Attempt to cache downloaded files (only if plugin is present).
   if Vagrant.has_plugin?("vagrant-cachier")

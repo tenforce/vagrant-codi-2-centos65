@@ -71,12 +71,12 @@ install_webbrowser() {
 }
 
 ########################################################################
+
 install_java() {
     if [ ! -d "/usr/lib/jvm/java-${JAVA_VERSION}-openjdk.x86_64" ]
     then
 	# Assume an update will be required.
-	yum -y install yum-priorities
-	yum -y install java-${JAVA_VERSION}-openjdk java-${JAVA_VERSION}-openjdk-devel
+	yum -y install java-${JAVA_VERSION}-openjdk-devel
 	# Add to path setting
 	echo "export JAVA_HOME=\"/usr/lib/jvm/java-${JAVA_VERSION}-openjdk.x86_64\"" >> ${HOME}/.bashrc
     fi
@@ -237,7 +237,6 @@ install_uv() {
 	 cp -r ${INSTALLDIR}/downloads/docker-unified-views/packages .
 	 if [ "$MUSERNAME" != "" ] ; then
 	    cp ${INSTALLDIR}/config-files/email-config.properties ${INSTALLDIR}/config-files/email-config.properties.new
-	    sed -i "s/%MAIL_USERNAME%/$MUSERNAME/g" ${INSTALLDIR}/config-files/email-config.properties.new
 	    sed -i "s/%MAIL_PASSWORD%/$MPASSWORD/g" ${INSTALLDIR}/config-files/email-config.properties.new
 	    sed -i "s/%MAIL_SERVER%/$MSERVER/g" ${INSTALLDIR}/config-files/email-config.properties.new
 	 else
@@ -290,7 +289,7 @@ smtp_use_tls = yes" >> /etc/postfix/main.cf
 }
 
 ##############################################################################
-# CODI-2
+# CODI-2 (call the functions in the correct order)
 ##############################################################################
 
 if [ "$DOWNLOAD_ALLOWED" = "yes" ]
@@ -302,7 +301,13 @@ fi
 
 if [ ! -f "downloads/ojdbc7.jar" ] ; then
     echo "Error: ojdbc7.jar must be downloaded from Oracle website"
-    ecit -1;
+    exit -1;
+fi
+
+if [ ! -d "${INSTALLDIR}/downloads/docker-unified-views/packages" ]
+then
+    echo "ERROR: downloading of components needs to be executed"
+    exit -2;
 fi
 
 install_default;            # Main component installs

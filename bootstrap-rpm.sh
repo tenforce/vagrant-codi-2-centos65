@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 #################################################################
 yum -y install dkms
-yum -y install epel-release
-yum -y install yum-plugin-priorities
-yum -y update 
-yum -y install gcc gcc-c++ gmake autoconf automake flex openssl git make bzip2 perl
-yum -y install patch binutils patch libgomp glibc-headers glibc-devel kernel-devel kernel-headers dos2unix
+# yum -y install epel-release
+# yum -y install yum-plugin-priorities
+# yum -y update 
 yum -y groupinstall "Development Tools"
+yum -y install gcc gcc-c++ gmake autoconf automake flex openssl git make bzip2 perl
+yum -y install patch binutils patch libgomp glibc-headers glibc-devel dos2unix wget
+yum -y install kernel-devel kernel-headers
 
 #################################################################
 # try to clear the OpenGL rebuild error (guest additions for 5.0.10)

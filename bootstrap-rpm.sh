@@ -54,6 +54,9 @@ echo "****** Setting homepage of firefox *******"
 echo "pref(\"startup.homepage_override_url\", \"file:///vagrant/homepage.html\");" >> /usr/lib64/firefox/defaults/preferences/all-redhat.js
 echo "pref(\"startup.homepage_welcome_url\", \"file:///vagrant/homepage.html\");" >> /usr/lib64/firefox/defaults/preferences/all-redhat.js
 
+# Clean out some things (in case).
+yum -y remove java
+
 #################################################################
 echo "****** Bootstraping completed ******"
 #################################################################

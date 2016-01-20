@@ -1,11 +1,12 @@
 #+SETUPFILE: ~/SpiderOak/Org/org-html-themes/setup/theme-readtheorg.setup
 #+TITLE: CODI-2 - Development Environment
+#+OPTIONS: ^:nil
 #+AUTHOR: Paul Massey
 
 * Introduction
 
 The following tools are included in this development environment. It
-has the following main entry point - *[[http://localhost:8080/unifiedviews][Unified Views 2.1.3]]*. Other
+has the following main entry point - *[[http://localhost:8080/unifiedviews][Unified Views 2.3.0]]~*. Other
 tools which maybe accessible are:
 
 - *[[http://localhost:8080/manager/html][Tomcat7 Management Page]]* ::
@@ -21,12 +22,12 @@ tools which maybe accessible are:
 The environment is intended as a disposable development evironment,
 all development work should be placed in a source code repository:
 
-- Files in /vagrant are shared with the host system, so backup of
-  pipelines, etc. need to be moved there (or preferable saved using
-  git, svn, etc.).
+- Files in /vagrant are shared with the host system, so to backup
+  pipelines, etc. the files need to be moved there (or preferable
+  saved directly from this machine using git, svn, etc.).
 
 Vagrant VM's are intended as development environments (i.e. to be used
-behind a firewall, etc.), they are *not* intended to be directly
+behind a firewall, etc.), they are */not/* intended to be directly
 connected to the internet, without changes to all the standard user
 accounts, public passwords, etc.
 
@@ -57,10 +58,48 @@ in the /vagrant/downloads directory with a view to reducting the cost
 in the event of a rebuild of the systsem (downloading can be switched
 off using a variable at the top of the script).
 
+* Installing UV offline
+Using the install script to setup for building and installing the
+software offline is a multi-stage process (starting once the vagrant
+machine has been booted/created).
+
+1./ Set the DOWNLOAD_ALLOWED variable to "yes" (when connected to the
+    internet). Once logged in, in a terminal:
+
+    #+BEGIN_QUOTE
+    sudo DOWNLOAD_ALLOWED=yes ./install_uv_components.sh /email-account/ /email-password/
+    #+END_QUOTE
+
+2./ Build the system at least once (so that the downloads are cached
+    in the /vagrant directory).
+
+3./ Copy the vagrant directory onto the remote system.
+
+4./ Rerun the installation script with the DOWNLOAD_ALLOWED variable
+    set to "no".
+
+* Using MS Sql Server
+
+For testing purposes the assumption here is that [[https://github.com/fgrehm/vagrant-mssql-express.git][Vagrant Test Machine]]
+or [[https://github.com/leezu/vagrant-mssql-express/][2014]] is up and running and that a database 'unifiedviews' has been
+created. The UV config settings assume that this machine is available
+and on the localhost. Once the machine is up and running, the
+following which make sure the appropriate configuration files are used
+(DB_CONNECTION=mssql which indicate SQL Server is needed).
+
+#+BEGIN_QUOTE
+sudo DOWNLOAD_ALLOWED=yes DB_CONNECTION=mssql ./install_uv_components.sh
+#+END_QUOTE
+
+Notes:
+- The MS SQL Server test machine should only be used for testing
+  (otherwise you'll need to activate it, etc.). 
+- The sqljdbc41.jar will need to be available.
+
 * Environment Details  
 | *Component*    | *Version* | *Pointer*               | *Notes*                     |
 |----------------+-----------+-------------------------+-----------------------------|
-| CentOS         |       6.5 | [[xx]]                      | Kernel 2.6.32[fn:1], 64 bit |
+| CentOS         |       6.5 | [[http://google.com]]       | Kernel 2.6.32[fn:1], 64 bit |
 | UnifiedViews   |     2.1.3 | [[http://unifiedviews.eu/]] |                             |
 | MySQL          |           |                         |                             |
 | Firefox        |    38.4.0 |                         |                             |

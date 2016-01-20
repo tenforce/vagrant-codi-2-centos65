@@ -12,8 +12,10 @@ chmod +x /usr/local/unifiedviews/env-to-java-properties-file.sh
 sh  /usr/local/unifiedviews/env-to-java-properties-file.sh
 
 # Unified Views backend
+chmod -R a+w /usr/local/unifiedviews/dpu
+chmod -R a+w /usr/local/unifiedviews/lib
 cd /usr/local/unifiedviews
-nohup java -DconfigFileLocation=/usr/local/unifiedviews/config/backend-config.properties -jar /usr/local/unifiedviews/packages/backend-2.1.0.jar &
+nohup java -DconfigFileLocation=/usr/local/unifiedviews/config/backend-config.properties -jar /usr/local/unifiedviews/packages/backend-2.?.0.jar &
 
 # Unified Views frontend
 cp /usr/local/unifiedviews/packages/unifiedviews.war /usr/local/tomcat7/webapps/

@@ -14,10 +14,9 @@
 # Short-Description: start and stop tomcat
 ### END INIT INFO
 
-JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
-export JAVA_HOME  
-PATH="$JAVA_HOME/bin:$PATH"
-export PATH  
+source /etc/environment
+export PATH="$JAVA_HOME/bin:$PATH"
+export JAVA_OPTS="-Xms512m -Xmx512m -XX:NewSize=256m -XX:MaxNewSize=356m -XX:PermSize=256m -XX:MaxPermSize=356m" 
 CATALINA_HOME=/usr/local/tomcat7
       
 case $1 in  

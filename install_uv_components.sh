@@ -14,11 +14,20 @@ set -x
 INSTALLDIR=`pwd`
 
 ########################################################################
+# Defines the two stages of this process - download/build (DOWNLOAD_BUILD)
+# and the install what has been built stage (INSTALL_BUILT). The default
+# is build to download and build the software. Some software will need
+# to be present for both the building (java) and the installation.
+
+: ${STAGE:="DOWNLOAD_BUILD"} 
+    
+########################################################################
 # Environment variables which have basic defaults.
 
 : ${DOWNLOAD_ALLOWED:="yes"}
 : ${DB_CONNECTION:="mysql"}
 : ${MAVEN_OPTS:="-Xms256m -Xmx1024m -XX:PermSize=256m"}
+: ${BUILDDIR:=${INSTALLDIR}/build}
 
   ######################################################################
   # Account details used throughout the system (change when needed)
@@ -38,7 +47,7 @@ export DOWNLOAD_ALLOWED DB_CONNECTION MAVEN_OPTS
 
 MAVEN_REPO_LOCAL=${INSTALLDIR}/downloads/repository
 MAVEN_OFFLINE=
-if [ "${DOWNLOAD_ALLOWED}" = "no" ] ; then
+if [ "${DOWNLOAD_ALLOWED}" = "no" -o "${STAGE}" = "INSTALL_BUILT" ] ; then
     MAVEN_OFFLINE="-o"
 fi
 
@@ -200,11 +209,15 @@ download_uv() {
 	   touch Core-release-UV_Core_v2.3.0/frontend/src/main/webapp/VAADIN/themes/ModTheme/styles.css
 	   # Replace the updated files
 	   # Update to "FOR UPDATE"
-	   cp downloads/updated-java/DbScheduleImpl.java Core-release-UV_Core_v2.3.0/commons-app/src/main/java/cz/cuni/mff/xrg/odcs/commons/app/scheduling/DbScheduleImpl.java
+	   cp updated-java/DbScheduleImpl.java Core-release-UV_Core_v2.3.0/commons-app/src/main/java/cz/cuni/mff/xrg/odcs/commons/app/scheduling/DbScheduleImpl.java
 
-	   cp downloads/updated-java/DbExecutionServerImpl.java Core-release-UV_Core_v2.3.0/commons-app/src/main/java/cz/cuni/mff/xrg/odcs/commons/app/execution/server/DbExecutionServerImpl.java
+	   if [ "${DB_CONNECTION}" = "mssql" ] ;
+	   then
+	       # Replace with one having the top usage instead of LIMIT
+	       cp updated-java/DbExecutionServerImpl.java Core-release-UV_Core_v2.3.0/commons-app/src/main/java/cz/cuni/mff/xrg/odcs/commons/app/execution/server/DbExecutionServerImpl.java
+	   fi
 
-	   cp downloads/updated-java/ExecutionServer.java Core-release-UV_Core_v2.3.0/commons-app/src/main/java/cz/cuni/mff/xrg/odcs/commons/app/execution/server/ExecutionServer.java
+	   cp updated-java/ExecutionServer.java Core-release-UV_Core_v2.3.0/commons-app/src/main/java/cz/cuni/mff/xrg/odcs/commons/app/execution/server/ExecutionServer.java
 
 	   unzip -o UV_Plugins*.zip
 	   unzip -o master*.zip
@@ -267,7 +280,8 @@ install_oracle_jar() {
 
 install_mssqlserver_jar() {
     pushd ${INSTALLDIR}/downloads
-      # The sql*.tar,gz has to be manually downloaded from the ms site
+      # The sqljdbc_6.0.6629.101_enu.tar.gz has to be manually
+      # downloaded from the microsoft website (and license agreed to).
       if [ "${DB_CONNECTION}" = "mssql" ]
       then
 	  mkdir packages/lib
@@ -538,29 +552,36 @@ if [ "${DB_CONNECTION}" = "mysql" ] ; then
 fi
 
 # last checks that some commands are installed
+
 check_installed mvn
 check_installed java
 check_installed git
 
-# Install some jdbc drivers
+case "$STAGE" in
+    DOWNLOAD_BUILD) 
+	# Install some jdbc drivers
+	install_oracle_jar
+	install_mssqlserver_jar
+	# Start to build, configure, etc. unifiedviews
 
-install_oracle_jar
-install_mssqlserver_jar
+	install_mail;
+	config_mail;
+	build_uv_parts
+	if [ "${DOWNLOAD_ALLOWED}" = "yes" ]
+	then
+	    save_uv_downloads
+	fi
+	;;
+    INSTALL_BUILT)
+	copy_uv_plugins;
+	install_uv;
 
-# Start to build, configure, etc. unifiedviews
-
-install_mail;
-config_mail;
-build_uv_parts;
-copy_uv_plugins;
-install_uv;
-
-# It should all be installed, so final checks
-check_uv_installation;
-if [ "${DOWNLOADING}" = "yes" ]
-then
-    save_uv_downloads
-fi
+	# It should all be installed, so final checks
+	check_uv_installation;
+	;;
+    *) echo "*** ERROR: Options are DOWNLOAD_BUILD|INSTALL_BUILT"
+       exit -1
+esac
 
 ###############################################################################
 exit 0;

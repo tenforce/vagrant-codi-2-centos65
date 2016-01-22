@@ -34,7 +34,7 @@ INSTALLDIR=`pwd`
 : ${DOWNLOAD_ALLOWED:="yes"}
 : ${DB_CONNECTION:="mysql"}
 : ${MAVEN_OPTS:="-Xms256m -Xmx1024m -XX:PermSize=256m"}
-: ${BUILDDIR:=${INSTALLDIR}/build}
+: ${BUILDDIR:=uv_build}
 
   ######################################################################
   # STAGE also determines download possibilities
@@ -521,20 +521,24 @@ smtp_use_tls = yes" >> /etc/postfix/main.cf
 # be sufficient to install the system on the remote system.
 
 save_built() {
-    mkdir -p ${BUILDDIR}
-    mkdir -p ${BUILDDIR}/downloads
-    pushd ${BUILDDIR}
+    mkdir -p ${INSTALLDIR}/${BUILDDIR}
+    mkdir -p ${INSTALLDIR}/${BUILDDIR}/downloads
+    pushd ${INSTALLDIR}/${BUILDDIR}
      cp -r ${INSTALLDIR}/downloads .
      rm -rf downloads/repository
      rm -rf downloads/Core*
      rm -rf downloads/UV*
      rm -rf downloads/docker-*
      cp ${INSTALLDIR}/*.sh .
+     cp ${INSTALLDIR}/*.org .
+     cp ${INSTALLDIR}/*.html .          
      cp -r ${INSTALLDIR}/config-files .
     popd
-    # TAR it up for copying to remote system 
-    tar cvf uv_build.tar ${BUILDDIR}
-    gzip -9 uv_build.tar
+    # TAR it up for copying to remote system
+    pushd ${INSTALLDIR}
+     tar cvf uv_build.tar ${BUILDDIR}
+     gzip -9 uv_build.tar
+    popd
 }
 
 ##############################################################################

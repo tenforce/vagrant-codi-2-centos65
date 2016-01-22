@@ -9,15 +9,22 @@
 #
 #   DB_CONNECTION ("mysql","mssql")
 #
+#   STAGE ("DOWNLOAD_BUILD", "SAVE_BUILT", "INSTALL_BUILT")
+#
 set -x
 
 INSTALLDIR=`pwd`
 
 ########################################################################
-# Defines the two stages of this process - download/build (DOWNLOAD_BUILD)
-# and the install what has been built stage (INSTALL_BUILT). The default
-# is build to download and build the software. Some software will need
-# to be present for both the building (java) and the installation.
+# Defines the stages of this process
+#
+# - download/build (DOWNLOAD_BUILD)
+# - save the built components (SAVE_BUILT}
+# - and the install what has been built stage (INSTALL_BUILT).
+#
+# The default is DOWNLOAD_BUILD which will download and build the
+# software. Some software will need to be present for both the
+# building (java) and the installation.
 
 : ${STAGE:="DOWNLOAD_BUILD"} 
     
@@ -28,6 +35,14 @@ INSTALLDIR=`pwd`
 : ${DB_CONNECTION:="mysql"}
 : ${MAVEN_OPTS:="-Xms256m -Xmx1024m -XX:PermSize=256m"}
 : ${BUILDDIR:=${INSTALLDIR}/build}
+
+  ######################################################################
+  # STAGE also determines download possibilities
+
+if [ "${STAGE}" != "DOWNLOAD_BUILD" ]
+then
+    DOWNLOAD_ALLOWED=no
+fi
 
   ######################################################################
   # Account details used throughout the system (change when needed)
@@ -184,7 +199,8 @@ install_tomcat7() {
 
 install_mysql() {
     if ! hash mysql 2>/dev/null; then
-	yum -y install mysql-server
+	# Install server & workbench
+	yum -y install mysql-server pexpect libzip tinyxml mysql-workbench-community
 	# Start service, set the default password and enable for reboot restart
 	/sbin/service mysqld start
 	/usr/bin/mysqladmin -u root password root
@@ -501,6 +517,27 @@ smtp_use_tls = yes" >> /etc/postfix/main.cf
 }
 
 ##############################################################################
+# This will copy all the required files to a build directory which should then
+# be sufficient to install the system on the remote system.
+
+save_built() {
+    mkdir -p ${BUILDDIR}
+    mkdir -p ${BUILDDIR}/downloads
+    pushd ${BUILDDIR}
+     cp -r ${INSTALLDIR}/downloads .
+     rm -rf downloads/repository
+     rm -rf downloads/Core*
+     rm -rf downloads/UV*
+     rm -rf downloads/docker-*
+     cp ${INSTALLDIR}/*.sh .
+     cp -r ${INSTALLDIR}/config-files .
+    popd
+    # TAR it up for copying to remote system 
+    tar cvf uv_build.tar ${BUILDDIR}
+    gzip -9 uv_build.tar
+}
+
+##############################################################################
 # CODI-2 (call the functions in the correct order)
 ##############################################################################
 
@@ -531,11 +568,11 @@ then
     exit -1;
 fi
 
-if [ ! -d "${INSTALLDIR}/downloads/docker-unified-views/packages" ]
-then
-    echo "ERROR: downloading of components needs to be executed"
-    exit -2;
-fi
+# if [ ! -d "${INSTALLDIR}/downloads/packages" ]
+# then
+#   echo "ERROR: downloading and building of components needs to be executed"
+#   exit -2;
+# fi
 
 install_default;            # Main component installs
 install_webbrowser;
@@ -572,6 +609,9 @@ case "$STAGE" in
 	    save_uv_downloads
 	fi
 	;;
+    SAVE_BUILT)
+	save_built
+	;;
     INSTALL_BUILT)
 	copy_uv_plugins;
 	install_uv;
@@ -579,7 +619,7 @@ case "$STAGE" in
 	# It should all be installed, so final checks
 	check_uv_installation;
 	;;
-    *) echo "*** ERROR: Options are DOWNLOAD_BUILD|INSTALL_BUILT"
+    *) echo "*** ERROR: Options are DOWNLOAD_BUILD|SAVE_BUILT|INSTALL_BUILT"
        exit -1
 esac
 

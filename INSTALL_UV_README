@@ -1,0 +1,9 @@
+- All that should be required is to execute the following instructions
+  as 'root':
+
+  gzip -d uv_build.tar.gz
+  tar -xvf uv_build.tar
+  DOWNLOAD_ALLOWED=no STAGE=INSTALL_BUILT ./install_uv_components.sh
+  ...
+  http://localhost:8080/unifiedviews should be accessible after this.
+

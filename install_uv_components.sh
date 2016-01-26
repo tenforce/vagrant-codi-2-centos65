@@ -418,6 +418,23 @@ create_dbtables() {
 ###############################################################################
 
 create_uv_service() {
+    if [ ! -f "/etc/init.d/unifiedviews-backend" ] ; then
+       echo "*** INFO: setup backend service"
+       mkdir -p /etc/unifiedviews
+       cp ${INSTALLDIR}/config-files/unifiedviews-backend.service /etc/init.d/unifiedviews-backend
+       cp -r ${INSTALLDIR}/downloads/backend-service/usr/sbin/run_unifiedviews_backend /usr/sbin/
+       cp ${INSTALLDIR}/config-files/unifiedviews.conf /etc/unifiedviews/unifiedviews.conf
+       cp -r ${INSTALLDIR}/downloads/backend-service/usr/sbin/run_unifiedviews_backend /usr/sbin/
+       useradd unifiedviews
+       mkdir -p /var/log/unifiedviews/backend/
+       chown unifiedviews:unifiedviews /var/log/unifiedviews/backend/
+       chmod +x /usr/sbin/run_unifiedviews_backend
+       chmod +x /etc/init.d/unifiedviews-backend
+       chmod +x ${INSTALLDIR}/downloads/backend-service/control/postinst
+       ${INSTALLDIR}/downloads/backend-service/control/postinst configure
+       chkconfig unifiedviews-backend on
+    fi
+       
     if [ ! -f "/etc/init.d/tomcat7" ] ; then
 	cp ${INSTALLDIR}/config-files/tomcat.service /etc/init.d/tomcat7
 	cp ${INSTALLDIR}/config-files/tomcat-setenv.sh /usr/local/tomcat7/bin/setenv.sh
@@ -523,9 +540,11 @@ smtp_use_tls = yes" >> /etc/postfix/main.cf
 save_built() {
     mkdir -p ${INSTALLDIR}/${BUILDDIR}
     mkdir -p ${INSTALLDIR}/${BUILDDIR}/downloads
+    mkdir -p ${INSTALLDIR}/${BUILDDIR}/downloads/backend-service
     pushd ${INSTALLDIR}/${BUILDDIR}
      cp -r ${INSTALLDIR}/downloads .
      rm -rf downloads/repository
+     cp -r ${INSTALLDIR}/${BUILDDIR}/downloads/Core*/debian/unifiedviews-backend/src/deb/* ${INSTALLDIR}/${BUILDDIR}/downloads/backend-service
      rm -rf downloads/Core*
      rm -rf downloads/UV*
      rm -rf downloads/docker-*

@@ -36,6 +36,10 @@ INSTALLDIR=`pwd`
 : ${MAVEN_OPTS:="-Xms256m -Xmx1024m -XX:PermSize=256m"}
 : ${BUILDDIR:=uv_build}
 
+  # Overwrite with a sesame.version = 2.8.9 (normally 2.8.1)
+
+: ${SESAME_VERSION:=2.8.9}
+
   ######################################################################
   # STAGE also determines download possibilities
 
@@ -332,10 +336,11 @@ build_uv_plugins() {
 	  echo "*** INFO: taking plugins from docker view"
       else
 	  pushd Plugin-DevEnv-master
-            mvn -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} clean install
+	    # cp ${INSTALLDIR}/config-files/dev-pom.xml pom.xml
+            mvn -Dsesame.version=${SESAME_VERSION} -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} clean install
 	  popd
 	  pushd Plugins-release-UV_Plugins_v2.2.1
-            mvn -DskipTests -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} clean install
+            mvn -Dsesame.version=${SESAME_VERSION} -DskipTests -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} clean install
 	  popd
       fi
     popd
@@ -344,7 +349,7 @@ build_uv_plugins() {
 build_uv_core() {
     pushd ${INSTALLDIR}/downloads    
      pushd *Core*
-       mvn -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} clean install
+       mvn -Dsesame.version=${SESAME_VERSION} -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} clean install
      popd
     
      mkdir -p packages/lib
@@ -469,7 +474,8 @@ install_uv() {
 	mkdir -p /usr/local/unifiedviews/config
 	mkdir -p /usr/local/unifiedviews/lib
 	mkdir -p /usr/local/unifiedviews/backend/working
-
+	chmod -R g+rwX /usr/local/unifiedviews/backend/working
+	
 	create_dbtables
 	
 	pushd /usr/local/unifiedviews

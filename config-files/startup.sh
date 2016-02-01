@@ -15,7 +15,9 @@ sh  /usr/local/unifiedviews/env-to-java-properties-file.sh
 chmod -R a+w /usr/local/unifiedviews/dpu
 chmod -R a+w /usr/local/unifiedviews/lib
 cd /usr/local/unifiedviews
-nohup java -DconfigFileLocation=/usr/local/unifiedviews/config/backend-config.properties -jar /usr/local/unifiedviews/packages/backend-2.?.0.jar &
+service unifiedviews-backend start
+# export JAVA_OPTS="-verbose:gc  -XX:+PrintGCDetails -XX:+PrintGCTimeStamps" 
+# nohup java -DconfigFileLocation=/usr/local/unifiedviews/config/backend-config.properties -jar /usr/local/unifiedviews/packages/backend-2.?.0.jar &
 
 # Unified Views frontend
 cp /usr/local/unifiedviews/packages/unifiedviews.war /usr/local/tomcat7/webapps/

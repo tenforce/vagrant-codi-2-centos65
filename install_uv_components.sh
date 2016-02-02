@@ -77,10 +77,16 @@ UV_PLUGINS_VERSION=2.2.1
 
 ########################################################################
 
-JAVA_VERSION=1.7.0
+JAVA_VERSION=1.8.0
 MAVEN_VERSION=3.3.9
 TOMCAT_VERSION=7.0.67
 
+if [ "${JAVA_VERSION}" = "1.8.0" ] ; then
+    MAVEN_PROFILE="-P java8"
+else
+    MAVEN_PROFILE=
+fi
+   
 ########################################################################
 
 MUSERNAME=$1
@@ -337,10 +343,14 @@ build_uv_plugins() {
       else
 	  pushd Plugin-DevEnv-master
 	    # cp ${INSTALLDIR}/config-files/dev-pom.xml pom.xml
-            mvn -Dsesame.version=${SESAME_VERSION} -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} clean install
+          mvn -Dsesame.version=${SESAME_VERSION} \
+	      -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} ${MAVEN_PROFILE} \
+	      clean install
 	  popd
 	  pushd Plugins-release-UV_Plugins_v2.2.1
-            mvn -Dsesame.version=${SESAME_VERSION} -DskipTests -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} clean install
+          mvn -Dsesame.version=${SESAME_VERSION} -DskipTests \
+	      -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} ${MAVEN_PROFILE} \
+	      clean install
 	  popd
       fi
     popd
@@ -349,7 +359,9 @@ build_uv_plugins() {
 build_uv_core() {
     pushd ${INSTALLDIR}/downloads    
      pushd *Core*
-       mvn -Dsesame.version=${SESAME_VERSION} -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} clean install
+     mvn -Dsesame.version=${SESAME_VERSION} \
+	 -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} ${MAVEN_PROFILE} \
+	 clean install
      popd
     
      mkdir -p packages/lib
@@ -591,7 +603,7 @@ then
     exit -1;
 fi
 
-if [ ! -f "downloads/sqljdbc_6.0.6629.101_enu.tar.gz" ]
+if [ "${DB_CONNECTION}" = "mssql" -a ! -f "downloads/sqljdbc_6.0.6629.101_enu.tar.gz" ]
 then
     echo "Error: sqljdbc_6.0.6629.101_enu.tar.gz must be downloaded from microsoft website"
     exit -1;

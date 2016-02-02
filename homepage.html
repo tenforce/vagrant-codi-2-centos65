@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-01-13 wo 10:34 -->
+<!-- 2016-02-02 di 15:31 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>CODI-2 - Development Environment</title>
+<title>CODI-2 - DevEnv</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Paul Massey" />
 <style type="text/css">
@@ -148,18 +148,19 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">CODI-2 - Development Environment</h1>
+<h1 class="title">CODI-2 - DevEnv</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#orgheadline1">1. Introduction</a></li>
 <li><a href="#orgheadline2">2. Development Security</a></li>
-<li><a href="#orgheadline3">3. Installing UV on the VM</a></li>
-<li><a href="#orgheadline4">4. Installing UV offline</a></li>
-<li><a href="#orgheadline5">5. Using MS Sql Server</a></li>
-<li><a href="#orgheadline6">6. Environment Details</a></li>
-<li><a href="#orgheadline7">7. Account Details</a></li>
+<li><a href="#orgheadline3">3. Installing UnifiedViews on the VM</a></li>
+<li><a href="#orgheadline4">4. Installing UV in multiple STAGEs</a></li>
+<li><a href="#orgheadline5">5. Installing UV offline</a></li>
+<li><a href="#orgheadline6">6. Using MS Sql Server</a></li>
+<li><a href="#orgheadline7">7. Environment Details</a></li>
+<li><a href="#orgheadline8">8. Account Details</a></li>
 </ul>
 </div>
 </div>
@@ -168,17 +169,23 @@ for the JavaScript code in this tag.
 <h2 id="orgheadline1"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-The following tools are included in this development environment. It
-has the following main entry point - <b><a href="http://localhost:8080/unifiedviews">Unified Views 2.3.0</a>~</b>. Other
-tools which maybe accessible are:
+The following tools are included in this DevEnv once it has been 
+fully constructed. 
 </p>
 
 <dl class="org-dl">
+<dt><b><a href="http://localhost:8080/unifiedviews">Unified Views 2.3.0</a>~</b></dt><dd></dd>
+
+
 <dt><b><a href="http://localhost:8080/manager/html">Tomcat7 Management Page</a></b></dt><dd></dd>
 
 
 <dt><b>MySQL</b></dt><dd></dd>
 </dl>
+
+<p>
+See the STAGES below for in the complete installation of the DevENV.
+</p>
 
 <p>
 <b>Note:</b> 
@@ -203,39 +210,49 @@ all development work should be placed in a source code repository:
 <li>Files in /vagrant are shared with the host system, so to backup
 pipelines, etc. the files need to be moved there (or preferable
 saved directly from this machine using git, svn, etc.).</li>
-</ul>
 
-<p>
-Vagrant VM's are intended as development environments (i.e. to be used
-behind a firewall, etc.), they are <b><i>not</i></b> intended to be directly
-connected to the internet, without changes to all the standard user
-accounts, public passwords, etc.
-</p>
+<li>Vagrant VM's are intended as development environments (i.e. to be
+used behind a firewall, etc.), they are <b><i>not</i></b> intended to be
+directly connected to the internet, without changes to all the
+standard user accounts, public passwords, etc.</li>
+</ul>
 </div>
 </div>
 
 <div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">3</span> Installing UV on the VM</h2>
+<h2 id="orgheadline3"><span class="section-number-2">3</span> Installing UnifiedViews on the VM</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 This vagrant box is intended to mimic the approach which will be used
 to installation on a clean system (such as one created by the <b>vagrant
 up</b> command). There is no backing up of the system (none should be
-needed initially). The commands to run should be:
+needed initially). There are three basic STAGE settings
+</p>
+
+<dl class="org-dl">
+<dt><i>DOWNLOAD_BUILD</i></dt><dd></dd>
+
+<dt><i>SAVE_BUILT</i></dt><dd></dd>
+
+<dt><i>INSTALL_BUILT</i></dt><dd></dd>
+</dl>
+
+<p>
+The basic command structure to run has the form:
 </p>
 
 <blockquote>
 <p>
 cd <i>vagrant
-sudo ./install_uv_components.sh /email-account</i> <i>email-password</i>
+sudo STAGE=&lt;stage&gt; ./install_uv_components.sh /email-account</i> <i>email-password</i>
 </p>
 </blockquote>
 
 <p>
-This will take a while, but should result in the system being updated
-with UnifiedViews installed and running (<b>Note</b> if some of the sites
-are unavailable for downloading, then the downloading and installation
-will fail).
+Depending on the <i>STAGE</i> this can take quite a while. <b>xxx</b> but should
+result in the system being updated with UnifiedViews installed and
+running (<b>Note</b> if some of the sites are unavailable for downloading,
+then the downloading and installation will fail).
 </p>
 
 <p>
@@ -256,12 +273,80 @@ off using a variable at the top of the script).
 </div>
 
 <div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4"><span class="section-number-2">4</span> Installing UV offline</h2>
+<h2 id="orgheadline4"><span class="section-number-2">4</span> Installing UV in multiple STAGEs</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Using the install script to setup for building and installing the
 software offline is a multi-stage process (starting once the vagrant
 machine has been booted/created).
+</p>
+
+<p>
+1./ Set the DOWNLOAD_ALLOWED variable to "yes" (when connected to the
+    internet). Once logged in, in a terminal:
+</p>
+
+<blockquote>
+<p>
+sudo DOWNLOAD_ALLOWED=yes ./install_uv_components.sh
+</p>
+</blockquote>
+
+<p>
+2./ Build the system at least once (so that the downloads are cached
+    in the /vagrant directory). Then:
+</p>
+
+<blockquote>
+<p>
+sudo DOWNLOAD_ALLOWED=no STAGE=SAVE_BUILT ./install_uv_components.sh 
+</p>
+</blockquote>
+
+<p>
+This will create a <i>uv_build.tar.gz</i> file which should contain
+everything necessary to install the built software on a compatible
+system
+</p>
+
+<p>
+3./ Copy the <i>uv_build.tar.gz</i> directory onto the remote
+    system. Uncompress it and untar it (/gzip -d uv_build.tar.gz; tar
+    xvf uv_build.tar).
+</p>
+
+<p>
+4./ In the resulting directory, Rerun the installation script with the
+    DOWNLOAD_ALLOWED variable set to "no" and STAGE set to INSTALL_BUILT.
+</p>
+
+<blockquote>
+<p>
+sudo DOWNLOAD_ALLOWED=no STAGE=INSTALL_BUILT ./install_uv_components.sh
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">5</span> Installing UV offline</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Using the install script to setup for building and installing the
+software offline is a multi-stage process.
+</p>
+
+<ul class="org-ul">
+<li>The first is to construct a <i>uv_build.tar.gz</i> file which will contain
+all that is needed for installation on the remote system (which is the 
+result of the first two stages).</li>
+
+<li>The <i>uv_build.tar.gz</i> file is copied to the remote system, unpacked and
+then the execution of the final installation stage.</li>
+</ul>
+
+<p>
+The following outlines the basic path required:
 </p>
 
 <p>
@@ -291,16 +376,17 @@ sudo DOWNLOAD_ALLOWED=yes ./install_uv_components.sh <i>email-account</i> <i>ema
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5"><span class="section-number-2">5</span> Using MS Sql Server</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">6</span> Using MS Sql Server</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 For testing purposes the assumption here is that <a href="https://github.com/fgrehm/vagrant-mssql-express.git">Vagrant Test Machine</a>
-is up and running and that a database 'unifiedviews' has been
+or <a href="https://github.com/leezu/vagrant-mssql-express/">2014</a> is up and running and that a database 'unifiedviews' has been
 created. The UV config settings assume that this machine is available
 and on the localhost. Once the machine is up and running, the
-following which make sure the appropriate configuration files are
-used (DB_CONNECTION=mssql which indicate SQL Server is needed). 
+following which make sure the appropriate configuration files are used
+(DB_CONNECTION=mssql which indicate the SQL Server config files needed
+areo be used).
 </p>
 
 <blockquote>
@@ -316,13 +402,15 @@ Notes:
 <li>The MS SQL Server test machine should only be used for testing
 (otherwise you'll need to activate it, etc.).</li>
 <li>The sqljdbc41.jar will need to be available.</li>
+<li>Currently, UV 2.3.0 code is updated for mssql server (these
+updated files are located in downloads/updated-java)</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6"><span class="section-number-2">6</span> Environment Details</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">7</span> Environment Details</h2>
+<div class="outline-text-2" id="text-7">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -353,7 +441,7 @@ Notes:
 
 <tr>
 <td class="org-left">UnifiedViews</td>
-<td class="org-right">2.1.3</td>
+<td class="org-right">2.3.0</td>
 <td class="org-left"><a href="http://unifiedviews.eu/">http://unifiedviews.eu/</a></td>
 <td class="org-left">&#xa0;</td>
 </tr>
@@ -404,9 +492,9 @@ Notes:
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7"><span class="section-number-2">7</span> Account Details</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">8</span> Account Details</h2>
+<div class="outline-text-2" id="text-8">
 <ul class="org-ul">
 <li><a href="http://localhost:8080/unifiedviews">Unified Views Account Details</a>::
 
@@ -427,7 +515,15 @@ Notes:
 
 <ul class="org-ul">
 <li>Login account  : <i>tomcat</i></li>
-<li>LOgin password : <i>tomcat</i></li>
+<li>Login password : <i>tomcat</i></li>
+</ul></li>
+
+<li>When using the mssql vagrnt machines (mssql admin 
+account is)
+
+<ul class="org-ul">
+<li>Login account  : <i>sa</i></li>
+<li>Login password : <i>#Sa&#x2026;!</i></li>
 </ul></li>
 </ul>
 </div>
@@ -445,7 +541,7 @@ Hence using docker is not possible.
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Paul Massey</p>
-<p class="date">Created: 2016-01-13 wo 10:34</p>
+<p class="date">Created: 2016-02-02 di 15:31</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

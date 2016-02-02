@@ -1,17 +1,20 @@
 #+SETUPFILE: ~/SpiderOak/Org/org-html-themes/setup/theme-readtheorg.setup
-#+TITLE: CODI-2 - Development Environment
+#+TITLE: CODI-2 - DevEnv
 #+OPTIONS: ^:nil
 #+AUTHOR: Paul Massey
 
 * Introduction
 
-The following tools are included in this development environment. It
-has the following main entry point - *[[http://localhost:8080/unifiedviews][Unified Views 2.3.0]]~*. Other
-tools which maybe accessible are:
+The following tools are included in this DevEnv once it has been 
+fully constructed. 
+
+- *[[http://localhost:8080/unifiedviews][Unified Views 2.3.0]]~* ::
 
 - *[[http://localhost:8080/manager/html][Tomcat7 Management Page]]* ::
      
 - *MySQL* ::
+
+See the STAGES below for in the complete installation of the DevENV.
      
 *Note:* 
 - This environment does not contain virtuoso.
@@ -26,26 +29,33 @@ all development work should be placed in a source code repository:
   pipelines, etc. the files need to be moved there (or preferable
   saved directly from this machine using git, svn, etc.).
 
-Vagrant VM's are intended as development environments (i.e. to be used
-behind a firewall, etc.), they are */not/* intended to be directly
-connected to the internet, without changes to all the standard user
-accounts, public passwords, etc.
+- Vagrant VM's are intended as development environments (i.e. to be
+  used behind a firewall, etc.), they are */not/* intended to be
+  directly connected to the internet, without changes to all the
+  standard user accounts, public passwords, etc.
 
-* Installing UV on the VM
+* Installing UnifiedViews on the VM
+
 This vagrant box is intended to mimic the approach which will be used
 to installation on a clean system (such as one created by the *vagrant
 up* command). There is no backing up of the system (none should be
-needed initially). The commands to run should be:
+needed initially). There are three basic STAGE settings
+
+- /DOWNLOAD_BUILD/ ::
+- /SAVE_BUILT/ :: 
+- /INSTALL_BUILT/ ::
+
+The basic command structure to run has the form:
 
 #+BEGIN_QUOTE
 cd /vagrant
-sudo ./install_uv_components.sh /email-account/ /email-password/
+sudo STAGE=<stage> ./install_uv_components.sh /email-account/ /email-password/
 #+END_QUOTE
 
-This will take a while, but should result in the system being updated
-with UnifiedViews installed and running (*Note* if some of the sites
-are unavailable for downloading, then the downloading and installation
-will fail).
+Depending on the /STAGE/ this can take quite a while. *xxx* but should
+result in the system being updated with UnifiedViews installed and
+running (*Note* if some of the sites are unavailable for downloading,
+then the downloading and installation will fail).
 
 The /email-account/ and /email-password/ arguments will be used to
 replace the default settings for sending emails during the pipeline
@@ -58,10 +68,53 @@ in the /vagrant/downloads directory with a view to reducting the cost
 in the event of a rebuild of the systsem (downloading can be switched
 off using a variable at the top of the script).
 
-* Installing UV offline
+* Installing UV in multiple STAGEs
 Using the install script to setup for building and installing the
 software offline is a multi-stage process (starting once the vagrant
 machine has been booted/created).
+
+1./ Set the DOWNLOAD_ALLOWED variable to "yes" (when connected to the
+    internet). Once logged in, in a terminal:
+
+    #+BEGIN_QUOTE
+    sudo DOWNLOAD_ALLOWED=yes ./install_uv_components.sh
+    #+END_QUOTE
+
+2./ Build the system at least once (so that the downloads are cached
+    in the /vagrant directory). Then:
+
+    #+BEGIN_QUOTE
+    sudo DOWNLOAD_ALLOWED=no STAGE=SAVE_BUILT ./install_uv_components.sh 
+    #+END_QUOTE
+
+    This will create a /uv_build.tar.gz/ file which should contain
+    everything necessary to install the built software on a compatible
+    system
+
+3./ Copy the /uv_build.tar.gz/ directory onto the remote
+    system. Uncompress it and untar it (/gzip -d uv_build.tar.gz; tar
+    xvf uv_build.tar).
+
+4./ In the resulting directory, Rerun the installation script with the
+    DOWNLOAD_ALLOWED variable set to "no" and STAGE set to INSTALL_BUILT.
+
+    #+BEGIN_QUOTE
+    sudo DOWNLOAD_ALLOWED=no STAGE=INSTALL_BUILT ./install_uv_components.sh
+    #+END_QUOTE
+
+* Installing UV offline
+
+Using the install script to setup for building and installing the
+software offline is a multi-stage process.
+
+- The first is to construct a /uv_build.tar.gz/ file which will contain
+  all that is needed for installation on the remote system (which is the 
+  result of the first two stages).
+
+- The /uv_build.tar.gz/ file is copied to the remote system, unpacked and
+  then the execution of the final installation stage.
+
+The following outlines the basic path required:
 
 1./ Set the DOWNLOAD_ALLOWED variable to "yes" (when connected to the
     internet). Once logged in, in a terminal:
@@ -85,7 +138,8 @@ or [[https://github.com/leezu/vagrant-mssql-express/][2014]] is up and running a
 created. The UV config settings assume that this machine is available
 and on the localhost. Once the machine is up and running, the
 following which make sure the appropriate configuration files are used
-(DB_CONNECTION=mssql which indicate SQL Server is needed).
+(DB_CONNECTION=mssql which indicate the SQL Server config files needed
+areo be used).
 
 #+BEGIN_QUOTE
 sudo DOWNLOAD_ALLOWED=yes DB_CONNECTION=mssql ./install_uv_components.sh
@@ -95,12 +149,14 @@ Notes:
 - The MS SQL Server test machine should only be used for testing
   (otherwise you'll need to activate it, etc.). 
 - The sqljdbc41.jar will need to be available.
+- Currently, UV 2.3.0 code is updated for mssql server (these
+  updated files are located in downloads/updated-java)
 
 * Environment Details  
 | *Component*    | *Version* | *Pointer*               | *Notes*                     |
 |----------------+-----------+-------------------------+-----------------------------|
 | CentOS         |       6.5 | [[http://google.com]]       | Kernel 2.6.32[fn:1], 64 bit |
-| UnifiedViews   |     2.1.3 | [[http://unifiedviews.eu/]] |                             |
+| UnifiedViews   |     2.3.0 | [[http://unifiedviews.eu/]] |                             |
 | MySQL          |           |                         |                             |
 | Firefox        |    38.4.0 |                         |                             |
 | Java           |       1.7 |                         |                             |
@@ -124,7 +180,13 @@ Notes:
 - [[http://localhost:8080/manager/html][Tomcat7 Manager]] :
 
   - Login account  : /tomcat/
-  - LOgin password : /tomcat/
+  - Login password : /tomcat/
+
+- When using the mssql vagrnt machines (mssql admin 
+  account is)
+
+  - Login account  : /sa/
+  - Login password : /#Sa...!/
 
 * Footnotes
 

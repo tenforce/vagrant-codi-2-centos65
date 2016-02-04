@@ -153,6 +153,8 @@ Notes:
   updated files are located in downloads/updated-java)
 
 * Environment Details  
+** Main Software Versions
+
 | *Component*    | *Version* | *Pointer*               | *Notes*                     |
 |----------------+-----------+-------------------------+-----------------------------|
 | CentOS         |       6.5 | [[http://google.com]]       | Kernel 2.6.32[fn:1], 64 bit |
@@ -164,7 +166,23 @@ Notes:
 | Maven          |     3.3.9 |                         |                             |
 | common editors |         - |                         | emacs, vim, nano            |
 
+** Main Directories Impacted
+
+*** Working Directory
+
+*** Logfiles
+
+** Services Created
+
+- unifiedviews-backend
+- tomcat
+
 * Account Details
+
+- Basic Accounts Created while installing
+
+  - unifiedviews : 
+  - tomcat7      :
 
 - [[http://localhost:8080/unifiedviews][Unified Views Account Details]]::
      

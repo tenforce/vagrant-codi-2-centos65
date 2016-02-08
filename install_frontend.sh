@@ -195,7 +195,9 @@ install_saved() {
     # There should be *no* compilation from here on. Everything should be in the
     # created tar file.
     pushd ${INSTALLDIR}
-      mkdir -p /usr/local/tomcat7/lib    
+    cp config-files/frontend.conf /etc/httpd/conf.d
+    echo "127.0.0.1         data.consilium.europa.eu" >> /etc/hosts
+    mkdir -p /usr/local/tomcat7/lib    
       mkdir -p /usr/local/tomcat7/bin
       mkdir -p /usr/local/tomcat7/webapps
       cp *.war /usr/local/tomcat7/webapps

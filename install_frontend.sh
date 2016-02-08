@@ -107,7 +107,8 @@ install_tomcat7() {
 }
 
 ########################################################################
-# 
+# Install a bunch of obvious packages which might be needed.
+
 install_basics() {
     yum -y update
     yum -y install git gcc make autoconf net-tools automake libtool \
@@ -128,6 +129,8 @@ install_virtuoso_sesame() {
 
 build_council() {
     pushd ${INSTALLDIR}/downloads/council-rdf-templating
+      # Change the dba password (to the default used by virtuoso)
+      sed -i "s/XHDxUb/dba/" src/main/webapp/WEB-INF/applicationContext.xml 
       mvn -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} ${MAVEN_PROFILE} \
 	  clean install
     popd
@@ -154,6 +157,9 @@ build_virtuoso() {
 ########################################################################
 
 save_built() {
+    if [ -d "${INSTALLDIR}/${BUILDDIR}" ] ; then
+       mv ${INSTALLDIR}/${BUILDDIR} ${INSTALLDIR}/${BUILDDIR}.tmp
+    fi
     mkdir -p ${INSTALLDIR}/${BUILDDIR}
     pushd ${INSTALLDIR}/${BUILDDIR}
       cp ${INSTALLDIR}/*.sh .
@@ -161,6 +167,8 @@ save_built() {
       cp ${INSTALLDIR}/*.html .          
       cp -r ${INSTALLDIR}/config-files .
       cp -r ${INSTALLDIR}/downloads .
+      cp -r ${INSTALLDIR}/downloads/council-rdf-templating/target/council-rdf-templating-1.0.1.war .
+      cp -r ${INSTALLDIR}/data .      
       rm -rf downloads/repository
       rm -rf downloads/Core*
       rm -rf downloads/UV*
@@ -174,7 +182,18 @@ save_built() {
 
 ########################################################################
 
+install_virtuoso() {
+    # Ths is assuming that the virtuoso packages have been already created
+    # which will required the docker to be executed and the rp files to be
+    # save in the downloads directory.
+    if ! hash isql-v 2>/dev/null; then
+	yum install -y ${INSTALLDIR}/downloads/virtuoso-opensource-7*.rpm
+    fi
+}
+
 install_saved() {
+    # There should be *no* compilation from here on. Everything should be in the
+    # created tar file.
     pushd ${INSTALLDIR}
       mkdir -p /usr/local/tomcat7/lib    
       mkdir -p /usr/local/tomcat7/bin
@@ -194,7 +213,23 @@ install_saved() {
 	chkconfig --add tomcat7
 	chkconfig tomcat7 on
       fi
+      service tomcat7 start      
+      service tomcat7 stop
+      service virtuoso-opensource stop
+      # Update the virtuoso config to allow access to the /data directory
+      cp -r data /
+      cp config-files/virtuoso.ini /var/lib/virtuoso/db/virtuoso.ini
+      service virtuoso-opensource start
       service tomcat7 start
+      sleep 30;
+      # DefaultGraph is defined in applicationContext.xml as is the
+      # database location.
+      isql-v localhost dba dba <<EOF
+        ld_dir_all('/data', '*.ttl', 'http://debug.codi.org');
+        rdf_loader_run();
+        exit;
+EOF
+      # Restart the tomcat service.
     popd
 }
 
@@ -210,7 +245,7 @@ install_basics
 
 source ~/.bashrc
 
-check_installed java mvn git gcc gmake autoconf chkconfig
+check_installed java mvn git gcc gmake autoconf chkconfig 
 
 case "${STAGE}" in
     DOWNLOAD_BUILD)
@@ -222,6 +257,8 @@ case "${STAGE}" in
 	save_built
        ;;
     INSTALL_BUILT)
+	install_virtuoso
+	check_installed isql-v
 	install_saved
        ;;
     *)

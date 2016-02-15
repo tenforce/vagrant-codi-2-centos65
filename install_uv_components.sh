@@ -31,10 +31,13 @@ INSTALLDIR=`pwd`
 ########################################################################
 # Environment variables which have basic defaults.
 
-: ${DOWNLOAD_ALLOWED:="yes"}
+: ${DOWNLOAD_ALLOWED:="no"}
 : ${DB_CONNECTION:="mysql"}
-: ${MAVEN_OPTS:="-Xms256m -Xmx1024m -XX:PermSize=256m"}
+: ${MAVEN_OPTS:="-Xms256m -Xmx2048m "}
+#: ${MAVEN_OPTS:="-Xms256m -Xmx2048m -XX:PermSize=256m"}
 : ${BUILDDIR:=uv_build}
+: ${CODI:=1}
+
 
   # Overwrite with a sesame.version = 2.8.9 (normally 2.8.1)
 
@@ -59,6 +62,7 @@ fi
   ######################################################################
 
 export DOWNLOAD_ALLOWED DB_CONNECTION MAVEN_OPTS
+
 
 ########################################################################
 # Assume connected to the Internet and that files can be 
@@ -123,7 +127,7 @@ wget_n() {
 
 install_default() {
     if ! hash git 2>/dev/null; then
-	yum -y install curl git dos2unix autoconf make wget gawk bison m4
+	yum -y install curl git dos2unix autoconf make wget gawk bison m4 
     fi
 }
 
@@ -194,15 +198,26 @@ download_tomcat7() {
     wget_n http://www.us.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 }
 
+install_tomcat7_internal() {
+	tar xvf ${INSTALLDIR}/downloads/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+	cp -r apache-tomcat-${TOMCAT_VERSION}/* /usr/local/tomcat7
+	cp ${INSTALLDIR}/config-files/tomcat-users.xml /usr/local/tomcat7/conf
+}
+
+
 install_tomcat7() {
-    if [ ! -d "/usr/local/tomcat7" ]
+    if [ $CODI ] 
     then
-	pushd /usr/local
-	  tar xvf ${INSTALLDIR}/downloads/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-	  mv apache-tomcat-${TOMCAT_VERSION} tomcat7
-	  cp ${INSTALLDIR}/config-files/tomcat-users.xml /usr/local/tomcat7/conf
-	popd
-    fi
+       install_tomcat7_internal
+	
+    else
+	    if [ ! -d "/usr/local/tomcat7" ]
+	    then
+		pushd /usr/local
+	        install_tomcat7_internal
+		popd
+	    fi
+	fi
 }
 
 #################################################################
@@ -320,7 +335,7 @@ install_mssqlserver_jar() {
 	  cp sqljdbc_6.0/enu/sqljdbc41.jar packages/lib
 	  # YUK (would be much better elsewhere)
 	  cp sqljdbc_6.0/enu/sqljdbc41.jar /usr/local/tomcat7/lib
-	  chown tomcat7.tomcat7 /usr/local/tomcat7/lib/sqljdbc41.jar
+	  chown unifiedviews.unifiedviews /usr/local/tomcat7/lib/sqljdbc41.jar
 	  # Also make available for any build operations
 	  mvn -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} \
               install:install-file -Dfile=${INSTALLDIR}/downloads/sqljdbc_6.0/enu/sqljdbc41.jar \
@@ -344,13 +359,16 @@ build_uv_plugins() {
 	  pushd Plugin-DevEnv-master
 	    # cp ${INSTALLDIR}/config-files/dev-pom.xml pom.xml
           mvn -Dsesame.version=${SESAME_VERSION} \
+              -DskipTests \
+              -Dmaven.javadoc.skip=true \
 	      -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} ${MAVEN_PROFILE} \
-	      clean install
+	      install
 	  popd
 	  pushd Plugins-release-UV_Plugins_v2.2.1
           mvn -Dsesame.version=${SESAME_VERSION} -DskipTests \
+              -Dmaven.javadoc.skip=true \
 	      -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} ${MAVEN_PROFILE} \
-	      clean install
+	      install
 	  popd
       fi
     popd
@@ -360,8 +378,10 @@ build_uv_core() {
     pushd ${INSTALLDIR}/downloads    
      pushd *Core*
      mvn -Dsesame.version=${SESAME_VERSION} \
+         -DskipTests \
+         -Dmaven.javadoc.skip=true \
 	 -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} ${MAVEN_PROFILE} \
-	 clean install
+	 install
      popd
     
      mkdir -p packages/lib
@@ -400,13 +420,14 @@ copy_uv_plugins() {
 #############################################################################
 # Test files are where they should be (not that it works)
 check_uv_installation() {
-    FILES=/usr/local/tomcat7/webapps/unifiedviews.war \
-	  /usr/local/tomcat7/webapps/master.war
-    for f in ${FILES}
+    FILES="/usr/local/tomcat7/webapps/unifiedviews.war /usr/local/tomcat7/webapps/master.war"
+
+    for myfile in ${FILES}
     do
-	if ! -f ${f}
+        echo "check ${myfile}"
+	if [ ! -f ${myfile} ]
 	then
-	    echo "$f not found"
+	    echo "$myfile not found"
 	    exit -1 ;
 	fi
     done
@@ -434,15 +455,22 @@ create_dbtables() {
 
 ###############################################################################
 
+create_uv_user() {
+       useradd unifiedviews
+       groupadd unifiedviews
+       useradd -s /bin/bash -g unifiedviews unifiedviews
+}
+
 create_uv_service() {
-    if [ ! -f "/etc/init.d/unifiedviews-backend" ] ; then
+    create_uv_user
        echo "*** INFO: setup backend service"
        mkdir -p /etc/unifiedviews
        cp ${INSTALLDIR}/config-files/unifiedviews-backend.service /etc/init.d/unifiedviews-backend
-       cp -r ${INSTALLDIR}/downloads/backend-service/usr/sbin/run_unifiedviews_backend /usr/sbin/
        cp ${INSTALLDIR}/config-files/unifiedviews.conf /etc/unifiedviews/unifiedviews.conf
-       cp -r ${INSTALLDIR}/downloads/backend-service/usr/sbin/run_unifiedviews_backend /usr/sbin/
-       useradd unifiedviews
+       mkdir -p /usr/local/unifiedviews/bin
+       cp ${INSTALLDIR}/downloads/backend-service/usr/sbin/run_unifiedviews_backend /usr/local/unifiedviews/bin
+       ln -s /usr/local/unifiedviews/bin/run_unifiedviews_backend /usr/sbin/run_unifiedviews_backend
+      
        mkdir -p /var/log/unifiedviews/backend/
        chown unifiedviews:unifiedviews /var/log/unifiedviews/backend/
        chmod +x /usr/sbin/run_unifiedviews_backend
@@ -450,21 +478,16 @@ create_uv_service() {
        chmod +x ${INSTALLDIR}/downloads/backend-service/control/postinst
        ${INSTALLDIR}/downloads/backend-service/control/postinst configure
        chkconfig unifiedviews-backend on
-    fi
        
-    if [ ! -f "/etc/init.d/tomcat7" ] ; then
 	cp ${INSTALLDIR}/config-files/tomcat.service /etc/init.d/tomcat7
 	cp ${INSTALLDIR}/config-files/tomcat-setenv.sh /usr/local/tomcat7/bin/setenv.sh
 	echo >> /etc/default/tomcat7
-	sed -i "s/^TOMCAT7_USER.*/TOMCAT7_USER=root/" /etc/default/tomcat7
-	sed -i "s/^TOMCAT7_GROUP.*/TOMCAT7_GROUP=root/" /etc/default/tomcat7
-	groupadd tomcat7
-	useradd -s /bin/bash -g tomcat7 tomcat7
-	chown -Rf tomcat7.tomcat7 /usr/local/tomcat7/  
+	sed -i "s/^TOMCAT7_USER.*/TOMCAT7_USER=unifiedviews/" /etc/default/tomcat7
+	sed -i "s/^TOMCAT7_GROUP.*/TOMCAT7_GROUP=unifiedviews/" /etc/default/tomcat7
+	chown -Rf unifiedviews.unifiedviews /usr/local/tomcat7/  
 	chmod +x /etc/init.d/tomcat7
 	chkconfig --add tomcat7
 	chkconfig tomcat7 on
-    fi
 }
 
 ###############################################################################
@@ -515,11 +538,14 @@ install_uv() {
          create_uv_service;
 	 echo "Starting Service"
 	 chmod +x /usr/local/unifiedviews/startup.sh
-	 /usr/local/unifiedviews/startup.sh
+	 service unifiedviews-backend start
         popd
     else
 	echo "UV - Already setup"
     fi
+
+    cp ${INSTALLDIR}/downloads/packages/*.war /usr/local/tomcat7/webapps
+    chown -R unifiedviews:unifiedviews /usr/local/tomcat7/webapps
 }
 
 ##############################################################################
@@ -578,9 +604,21 @@ save_built() {
     popd
 }
 
+prepare_codi() {
+
+    if [ $CODI ] 
+    then
+	mkdir -p /u01/app/tomcat7
+        ln -s /u01/app/tomcat7 /usr/local/tomcat7
+	mkdir -p /u01/app/unifiedviews
+	ln -s /u01/app/unifiedviews /usr/local/unifiedviews 
+    fi
+}
+
 ##############################################################################
 # CODI-2 (call the functions in the correct order)
 ##############################################################################
+
 
 if [ "$DOWNLOAD_ALLOWED" = "yes" ]
 then
@@ -592,16 +630,20 @@ then
     # close to the target machine (everything can then be moved to the
     # remote machine when needed for building).
     #
+
+echo $DOWNLOAD_ALLOWED
     download_tomcat7;
     download_maven3;
     download_uv;
-fi
 
-if [ ! -f "downloads/ojdbc7.jar" ]
+if [ ! -f "${INSTALLDIR}/downloads/ojdbc7.jar" ]
 then
-    echo "Error: ojdbc7.jar must be downloaded from Oracle website"
+    echo "Error: ojdbc7.jar must be downloaded from Oracle website and installed in downloads"
     exit -1;
 fi
+
+fi
+
 
 if [ "${DB_CONNECTION}" = "mssql" -a ! -f "downloads/sqljdbc_6.0.6629.101_enu.tar.gz" ]
 then
@@ -615,9 +657,13 @@ fi
 #   exit -2;
 # fi
 
+if [ ! $CODI ] 
+then 
 install_default;            # Main component installs
 install_webbrowser;
 install_editor;
+fi
+
 install_java;
 install_maven3
 install_tomcat7
@@ -654,6 +700,8 @@ case "$STAGE" in
 	save_built
 	;;
     INSTALL_BUILT)
+        yum install lsb ;
+	prepare_codi;
 	copy_uv_plugins;
 	install_uv;
 

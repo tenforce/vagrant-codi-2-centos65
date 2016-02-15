@@ -21,6 +21,11 @@ INSTALLDIR=`pwd`
 : ${LOCAL_VIRTUOSO:=yes}
 : ${LOCAL_HTTPD:=yes}
 
+   # Assume virtuoso/httpd server are on the same machine
+
+: ${LOCAL_VIRTUOSO:=yes}
+: ${LOCAL_HTTPD:=yes}
+
    #####################################################################
    # Assume connected to the Internet and that files can be downloaded
    # as needed.

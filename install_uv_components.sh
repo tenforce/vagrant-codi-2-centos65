@@ -77,9 +77,11 @@ UV_PLUGINS_VERSION=2.2.1
 
 ########################################################################
 
-JAVA_VERSION=1.8.0
+JAVA_VERSION=1.7.0
 MAVEN_VERSION=3.3.9
 TOMCAT_VERSION=7.0.67
+
+   # For the UV builds with Java8.
 
 if [ "${JAVA_VERSION}" = "1.8.0" ] ; then
     MAVEN_PROFILE="-P java8"

@@ -8,6 +8,7 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "box-cutter/centos65-desktop"
   # switch off the vbguest updates since we are running the latest.
+  # config.vbguest.iso_path = "C:/HashiCorp/Vagrant/VBoxGuestAdditions_5.0.14.iso"
   config.vbguest.auto_update = false
   config.vbguest.no_remote = true  
   
@@ -25,7 +26,7 @@ Vagrant.configure(2) do |config|
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   config.vm.provider "virtualbox" do |vb|
-      vb.name = "vagrant-codi-2-centos65"
+      vb.name = "vagrant-codi-2-centos65-1"
       vb.gui = true
       vb.customize ["modifyvm", :id, "--memory", 6000]
       vb.customize ["modifyvm", :id, "--vram", 64]
@@ -35,4 +36,5 @@ Vagrant.configure(2) do |config|
       vb.customize ["modifyvm", :id, "--draganddrop", "bidirectional"]
       vb.customize ["modifyvm", :id, "--accelerate3d", "off"]
   end
+
 end

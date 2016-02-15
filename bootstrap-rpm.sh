@@ -23,7 +23,7 @@ do
 done
 
 #################################################################
-yum -y groupinstall "Desktop" "Desktop Platform" "X Window System" "Fonts"
+# yum -y groupinstall "Desktop" "Desktop Platform" "X Window System" "Fonts"
 yum -y groupinstall "Graphical Administration Tools"
 yum -y groupinstall "Internet Browser"
 

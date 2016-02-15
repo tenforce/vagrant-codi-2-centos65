@@ -3,7 +3,16 @@
 
   gzip -d uv_build.tar.gz
   tar -xvf uv_build.tar
+  cd uv_build
   DOWNLOAD_ALLOWED=no STAGE=INSTALL_BUILT ./install_uv_components.sh
   ...
   http://localhost:8080/unifiedviews should be accessible after this.
 
+* Changes
+  - 01-02-2016 : Included sesame.version variable to update build 
+  for UV components.
+
+  - 28-01-2016 : unifiedviews-backend service description is created
+  (using scripts from the debian packages). It should automatically
+  start up at boot time.
+  

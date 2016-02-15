@@ -14,6 +14,12 @@ INSTALLDIR=`pwd`
 
 : ${MAVEN_OPTS:="-Xms256m -Xmx1024m -XX:PermSize=256m"}
 : ${BUILDDIR:=frontend_build}
+: ${CODI:=1}
+
+   # Assume virtuoso/httpd server are on the same machine
+
+: ${LOCAL_VIRTUOSO:=yes}
+: ${LOCAL_HTTPD:=yes}
 
    #####################################################################
    # Assume connected to the Internet and that files can be downloaded
@@ -158,7 +164,7 @@ build_virtuoso() {
 
 save_built() {
     if [ -d "${INSTALLDIR}/${BUILDDIR}" ] ; then
-       mv ${INSTALLDIR}/${BUILDDIR} ${INSTALLDIR}/${BUILDDIR}.tmp
+	rm -rf ${INSTALLDIR}/${BUILDDIR} ${INSTALLDIR}/${BUILDDIR}.*
     fi
     mkdir -p ${INSTALLDIR}/${BUILDDIR}
     pushd ${INSTALLDIR}/${BUILDDIR}
@@ -195,14 +201,13 @@ install_saved() {
     # There should be *no* compilation from here on. Everything should be in the
     # created tar file.
     pushd ${INSTALLDIR}
-    cp config-files/frontend.conf /etc/httpd/conf.d
-    echo "127.0.0.1         data.consilium.europa.eu" >> /etc/hosts
-    mkdir -p /usr/local/tomcat7/lib    
-      mkdir -p /usr/local/tomcat7/bin
-      mkdir -p /usr/local/tomcat7/webapps
-      cp *.war /usr/local/tomcat7/webapps
-      cp downloads/virtjdbc4.jar /usr/local/tomcat7/lib
-      if [ ! -f "/etc/init.d/tomcat7" ] ; then
+     update_httpd_configuration
+     mkdir -p /usr/local/tomcat7/lib    
+     mkdir -p /usr/local/tomcat7/bin
+     mkdir -p /usr/local/tomcat7/webapps
+     cp *.war /usr/local/tomcat7/webapps
+     cp downloads/virtjdbc4.jar /usr/local/tomcat7/lib
+     if [ ! -f "/etc/init.d/tomcat7" ] ; then
 	cp ${INSTALLDIR}/config-files/tomcat.service /etc/init.d/tomcat7
 	cp ${INSTALLDIR}/config-files/tomcat-setenv.sh /usr/local/tomcat7/bin/setenv.sh
 	echo >> /etc/default/tomcat7
@@ -215,19 +220,50 @@ install_saved() {
 	chkconfig --add tomcat7
 	chkconfig tomcat7 on
       fi
-      service tomcat7 start      
-      service tomcat7 stop
+      service tomcat7 restart      
+    popd
+}
+
+    ########################################################################
+    # Update the apache httpd service
+
+update_httpd_configuration() {
+    pushd ${INSTALLDIR}    
+      if [ "${LOCAL_HTTPD}" = "yes" ] ; then
+	  service httpd stop
+          # update the httpd service config files
+          cp config-files/frontend.conf /etc/httpd/conf.d
+          echo "127.0.0.1         data.consilium.europa.eu" >> /etc/hosts
+	  service httpd start
+      else
+	  echo "*** INFO: configuration of HTTPD to proxy urls is elsewhere"
+      fi
+   popd
+}
+
+    ########################################################################
+    # Update the local virtuoso service with default test data
+
+update_virtuoso_data() {
+    pushd ${INSTALLDIR}    
       service virtuoso-opensource stop
       # Update the virtuoso config to allow access to the /data directory
       cp -r data /
       cp config-files/virtuoso.ini /var/lib/virtuoso/db/virtuoso.ini
       service virtuoso-opensource start
-      service tomcat7 start
       sleep 30;
       # DefaultGraph is defined in applicationContext.xml as is the
       # database location.
+      #   two graphs
+      #   - voting results
+      #     check for browsing
+      #   - everything else
+      #     - entity
+      #       check for merging of results
+      # 
       isql-v localhost dba dba <<EOF
-        ld_dir_all('/data', '*.ttl', 'http://debug.codi.org');
+        ld_dir_all('/data/public_voting', '*.ttl', 'http://public_voting.codi.org');
+        ld_dir_all('/data/general', '*.ttl', 'http://general.codi.org');
         rdf_loader_run();
         exit;
 EOF
@@ -239,11 +275,14 @@ EOF
 #
 ########################################################################
 
+if [ ! $CODI ] 
+then
 install_editor
 install_maven3
 install_java
 install_tomcat7
 install_basics
+fi
 
 source ~/.bashrc
 
@@ -251,17 +290,26 @@ check_installed java mvn git gcc gmake autoconf chkconfig
 
 case "${STAGE}" in
     DOWNLOAD_BUILD)
+	if [ ! $CODI ] 
+        then
+	build_virtuoso
+        fi
 	install_virtuoso_sesame
 	build_council
-	# build_virtuoso
        ;;
     SAVE_BUILT)
 	save_built
        ;;
     INSTALL_BUILT)
-	install_virtuoso
-	check_installed isql-v
 	install_saved
+	if [ "${LOCAL_VIRTUOSO}" = "yes" ]
+	then
+	    install_virtuoso
+	    check_installed isql-v
+	    update_virtuoso_data
+	else
+	    echo "*** INFO: virtuoso will need to be configured applicationContext.xml"
+	fi
        ;;
     *)
 	echo "*** ERROR: Options are ..."

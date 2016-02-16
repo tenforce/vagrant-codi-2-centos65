@@ -14,6 +14,12 @@ INSTALLDIR=`pwd`
 
 : ${MAVEN_OPTS:="-Xms256m -Xmx1024m -XX:PermSize=256m"}
 : ${BUILDDIR:=frontend_build}
+: ${CODI:=1}
+
+   # Assume virtuoso/httpd server are on the same machine
+
+: ${LOCAL_VIRTUOSO:=yes}
+: ${LOCAL_HTTPD:=yes}
 
    # Assume virtuoso/httpd server are on the same machine
 
@@ -274,11 +280,14 @@ EOF
 #
 ########################################################################
 
+if [ ! $CODI ] 
+then
 install_editor
 install_maven3
 install_java
 install_tomcat7
 install_basics
+fi
 
 source ~/.bashrc
 
@@ -286,9 +295,12 @@ check_installed java mvn git gcc gmake autoconf chkconfig
 
 case "${STAGE}" in
     DOWNLOAD_BUILD)
+	if [ ! $CODI ] 
+        then
+	build_virtuoso
+        fi
 	install_virtuoso_sesame
 	build_council
-	# build_virtuoso
        ;;
     SAVE_BUILT)
 	save_built

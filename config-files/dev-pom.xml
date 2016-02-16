@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>eu.unifiedviews</groupId>
+    <artifactId>uv-pom</artifactId>
+    <version>2.1.5</version>
+    <packaging>pom</packaging>
+    <name>uv-pom</name>
+
+    <developers>
+        <developer>
+            <name>Petr Škoda</name>
+            <email>skoda@ksi.mff.cuni.cz</email>
+            <organization>Faculty of Mathematics and Physics, Charles University in Prague</organization>
+        </developer>
+    </developers>
+
+    <properties>
+        <!-- UV version for dependencies. -->
+        <unifiedviews.api.version>2.1.5</unifiedviews.api.version>
+
+        <!-- Used bundle plugin version. -->
+        <bundle.plugin.version>2.3.7</bundle.plugin.version>
+
+        <!-- Versions of 3rd party libraries -->
+        <!-- Vaadin -->
+        <vaadin.version>7.3.7</vaadin.version>
+
+        <!-- other third party libraries versions -->
+        <slf4j.version>1.7.7</slf4j.version>
+        <logback.version>1.1.2</logback.version>
+        <sesame.version>2.8.9</sesame.version>
+        <junit.version>4.12</junit.version>
+        <xstream.version>1.4.7</xstream.version>
+        <commons.io>2.4</commons.io>
+
+        <!-- System properties. -->
+        <project.java.source.version>1.7</project.java.source.version>
+        <project.java.target.version>1.7</project.java.target.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>maven.eea.sk</id>
+            <name>maven.eea.sk-public</name>
+            <url>http://maven.eea.sk/artifactory/public/</url>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>eu.unifiedviews</groupId>
+                <artifactId>uv-dpu-api</artifactId>
+                <version>${unifiedviews.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>eu.unifiedviews</groupId>
+                <artifactId>uv-dpu-config-vaadin</artifactId>
+                <version>${unifiedviews.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>eu.unifiedviews</groupId>
+                <artifactId>uv-dataunit-rdf</artifactId>
+                <version>${unifiedviews.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>eu.unifiedviews</groupId>
+                <artifactId>uv-dataunit-files</artifactId>
+                <version>${unifiedviews.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>eu.unifiedviews</groupId>
+                <artifactId>uv-dataunit-relational</artifactId>
+                <version>${unifiedviews.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.openrdf.sesame</groupId>
+                <artifactId>sesame-model</artifactId>
+                <version>${sesame.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openrdf.sesame</groupId>
+                <artifactId>sesame-repository-api</artifactId>
+                <version>${sesame.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-server</artifactId>
+                <version>${vaadin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <!-- Profile for compilation with Java 8. -->
+        <profile>
+            <id>java8</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <project.java.target.version>1.8</project.java.target.version>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>${basedir}</directory>
+                <includes>
+                    <include>LICENSE.md</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${project.java.source.version}</source>
+                    <target>${project.java.target.version}</target>
+                    <!-- Print info about usage of deprecated API. -->
+                    <compilerArgument>-Xlint:deprecation</compilerArgument>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- define license -->
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 3</name>
+            <url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
+            <distribution>repo</distribution>
+            <!-- https://maven.apache.org/pom.html#Licenses -->
+        </license>
+    </licenses>
+</project>

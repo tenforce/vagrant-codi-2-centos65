@@ -282,11 +282,11 @@ EOF
 
 if [ ! $CODI ] 
 then
-install_editor
-install_maven3
-install_java
-install_tomcat7
-install_basics
+    install_editor
+    install_maven3
+    install_java
+    install_tomcat7
+    install_basics
 fi
 
 source ~/.bashrc
@@ -297,7 +297,7 @@ case "${STAGE}" in
     DOWNLOAD_BUILD)
 	if [ ! $CODI ] 
         then
-	build_virtuoso
+	    build_virtuoso
         fi
 	install_virtuoso_sesame
 	build_council

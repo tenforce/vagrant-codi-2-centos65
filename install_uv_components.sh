@@ -38,7 +38,6 @@ INSTALLDIR=`pwd`
 : ${BUILDDIR:=uv_build}
 : ${CODI:=1}
 
-
   # Overwrite with a sesame.version = 2.8.9 (normally 2.8.1)
 
 : ${SESAME_VERSION:=2.8.9}
@@ -129,7 +128,7 @@ wget_n() {
 
 install_default() {
     if ! hash git 2>/dev/null; then
-	yum -y install curl git dos2unix autoconf make wget gawk bison m4 
+	yum -y install curl git dos2unix autoconf make wget gawk bison m4 redhat-lsb
     fi
 }
 
@@ -142,6 +141,13 @@ install_editor() {
 install_webbrowser() {
     if ! hash firefox 2>/dev/null; then
 	yum -y install firefox
+    fi
+}
+
+install_lsb() {
+    # Used in the service definition scripts (/etc/init.d/unifiedviews-backend)
+    if ! -f /lib/lsb/init-functions 2>/dev/null; then
+	yum -y install redhat-lsb
     fi
 }
 
@@ -201,25 +207,26 @@ download_tomcat7() {
 }
 
 install_tomcat7_internal() {
-	tar xvf ${INSTALLDIR}/downloads/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-	cp -r apache-tomcat-${TOMCAT_VERSION}/* /usr/local/tomcat7
-	cp ${INSTALLDIR}/config-files/tomcat-users.xml /usr/local/tomcat7/conf
+    tar xvf ${INSTALLDIR}/downloads/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+    mkdir -p /usr/local/tomcat7
+    cp -r apache-tomcat-${TOMCAT_VERSION}/* /usr/local/tomcat7
+    cp ${INSTALLDIR}/config-files/tomcat-users.xml /usr/local/tomcat7/conf
 }
 
-
 install_tomcat7() {
+    echo "*** INFO: install_tomcat7"
     if [ $CODI ] 
     then
+       # WARNING - directory into which apache is unpacked is undefined
        install_tomcat7_internal
-	
     else
-	    if [ ! -d "/usr/local/tomcat7" ]
-	    then
-		pushd /usr/local
-	        install_tomcat7_internal
-		popd
-	    fi
+	if [ ! -d "/usr/local/tomcat7" ]
+	then
+	    pushd /usr/local
+  	     install_tomcat7_internal
+	    popd
 	fi
+    fi
 }
 
 #################################################################
@@ -379,11 +386,11 @@ build_uv_plugins() {
 build_uv_core() {
     pushd ${INSTALLDIR}/downloads    
      pushd *Core*
-     mvn -Dsesame.version=${SESAME_VERSION} \
-         -DskipTests \
-         -Dmaven.javadoc.skip=true \
-	 -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} ${MAVEN_PROFILE} \
-	 install
+      mvn -Dsesame.version=${SESAME_VERSION} \
+          -DskipTests \
+          -Dmaven.javadoc.skip=true \
+	  -Dmaven.repo.local=${MAVEN_REPO_LOCAL} ${MAVEN_OFFLINE} ${MAVEN_PROFILE} \
+	  install
      popd
     
      mkdir -p packages/lib
@@ -457,10 +464,12 @@ create_dbtables() {
 
 ###############################################################################
 
+: ${UV_USER:=unifiedviews}
+
 create_uv_user() {
-       useradd unifiedviews
-       groupadd unifiedviews
-       useradd -s /bin/bash -g unifiedviews unifiedviews
+       useradd ${UV_USER}
+       groupadd ${UV_USER}
+       useradd -s /bin/bash -g ${UV_USER} ${UV_USER}
 }
 
 create_uv_service() {
@@ -474,7 +483,7 @@ create_uv_service() {
        ln -s /usr/local/unifiedviews/bin/run_unifiedviews_backend /usr/sbin/run_unifiedviews_backend
       
        mkdir -p /var/log/unifiedviews/backend/
-       chown unifiedviews:unifiedviews /var/log/unifiedviews/backend/
+       chown ${UV_USER}:${UV_USER} /var/log/unifiedviews/backend/
        chmod +x /usr/sbin/run_unifiedviews_backend
        chmod +x /etc/init.d/unifiedviews-backend
        chmod +x ${INSTALLDIR}/downloads/backend-service/control/postinst
@@ -484,9 +493,9 @@ create_uv_service() {
 	cp ${INSTALLDIR}/config-files/tomcat.service /etc/init.d/tomcat7
 	cp ${INSTALLDIR}/config-files/tomcat-setenv.sh /usr/local/tomcat7/bin/setenv.sh
 	echo >> /etc/default/tomcat7
-	sed -i "s/^TOMCAT7_USER.*/TOMCAT7_USER=unifiedviews/" /etc/default/tomcat7
-	sed -i "s/^TOMCAT7_GROUP.*/TOMCAT7_GROUP=unifiedviews/" /etc/default/tomcat7
-	chown -Rf unifiedviews.unifiedviews /usr/local/tomcat7/  
+	sed -i "s/^TOMCAT7_USER.*/TOMCAT7_USER=${UV_USER}/" /etc/default/tomcat7
+	sed -i "s/^TOMCAT7_GROUP.*/TOMCAT7_GROUP=${UV_USER}/" /etc/default/tomcat7
+	chown -Rf ${UV_USER}.${UV_USER} /usr/local/tomcat7/  
 	chmod +x /etc/init.d/tomcat7
 	chkconfig --add tomcat7
 	chkconfig tomcat7 on
@@ -540,14 +549,15 @@ install_uv() {
          create_uv_service;
 	 echo "Starting Service"
 	 chmod +x /usr/local/unifiedviews/startup.sh
-	 service unifiedviews-backend start
+	 # Start everything and loadup the DPU's
+	 ACCOUNT=${UV_USER} /usr/local/unifiedviews/startup.sh
         popd
     else
 	echo "UV - Already setup"
     fi
 
     cp ${INSTALLDIR}/downloads/packages/*.war /usr/local/tomcat7/webapps
-    chown -R unifiedviews:unifiedviews /usr/local/tomcat7/webapps
+    chown -R ${UV_USER}:${UV_USER} /usr/local/tomcat7/webapps
 }
 
 ##############################################################################
@@ -607,7 +617,6 @@ save_built() {
 }
 
 prepare_codi() {
-
     if [ $CODI ] 
     then
 	mkdir -p /u01/app/tomcat7
@@ -659,13 +668,15 @@ fi
 #   exit -2;
 # fi
 
-if [ ! $CODI ] 
+if [ ! $CODI ]
 then 
-install_default;            # Main component installs
-install_webbrowser;
-install_editor;
+    install_default;            # Main component installs
+    install_webbrowser;
+    install_editor;
 fi
 
+# REDHAT-LSB is needed for service startup and management.
+install_lsb;
 install_java;
 install_maven3
 install_tomcat7
@@ -702,7 +713,6 @@ case "$STAGE" in
 	save_built
 	;;
     INSTALL_BUILT)
-        yum install lsb ;
 	prepare_codi;
 	copy_uv_plugins;
 	install_uv;

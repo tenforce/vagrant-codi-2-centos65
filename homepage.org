@@ -9,17 +9,42 @@ There are two CODI development environments for available, these
 being:
 
 - UnifiedViews 2.3.0 environment :: which is defined by the
-     *install_uv_components.sh* script.
+     *install_uv_components.sh* script. The following tools are
+     included in this DevEnv once it has been fully constructed for
+     the unifiedviews installation:
+
+     - *[[http://localhost:8080/unifiedviews][Unified Views 2.3.0]]~* :: which is the main entry point to the
+          UnifiedViews system.
+
+     - *[[http://localhost:8080/manager/html][Tomcat7 Management Page]]* ::
+     
+     - *MySQL* ::
+
 - Frontend Data Browser :: the *install_frontend.sh* script
-     defined this enviroment
+     defined this enviroment.
+     - *[[http://data.consilium.europa.eu/browse][Frontend Browser]]* :: 
+
+     - *[[http://localhost:8080/manager/html][Tomcat7 Management Page]]* ::
+
+
 
 Which one is provided depends on the installation intention, but in
 bother cases the scripts function in a three stage approach. These
 stages being defined:
 
-- DOWNLOAD_BUILD ::
-- SAVE_BUILT ::
-- INSTALL_BUILT ::
+- DOWNLOAD_BUILD :: which will likely require a connection to the
+     internet to allow downloading of missing components to be
+     recovered.
+- SAVE_BUILT :: this will be used to create a /.tar.gz/ file which
+     will be used during the final installation stage (at this point
+     there shouldn't be anything other that copying files required).
+- INSTALL_BUILT :: Will copy the config-files, war and jar files to
+     the location required to execute the software component.
+
+*Note:* 
+- This environment does not contain virtuoso.
+- Plugins available are taken from docker-unified-views dpus.zip
+- Virtualbox Guest additions do not always work as expected.
 
 ** Installing in multiple STAGEs
 Using the /install script/ to setup for building and installing the
@@ -57,28 +82,6 @@ the vagrant machine has been booted/created).
 
 Following this the links on the relevant links on the browser homepage
 will provide access to those facilities which have been installed.
-
-** UnifiedViews Installation
-
-The following tools are included in this DevEnv once it has been 
-fully constructed. 
-
-- *[[http://localhost:8080/unifiedviews][Unified Views 2.3.0]]~* ::
-
-- *[[http://localhost:8080/manager/html][Tomcat7 Management Page]]* ::
-     
-- *MySQL* ::
-
-*Note:* 
-- This environment does not contain virtuoso.
-- Plugins available are taken from docker-unified-views dpus.zip
-- Virtualbox Guest additions do not always work as expected.
-
-** FrontEnd Web Interface
-
-- *[[http://data.consilium.europa.eu/browse][Frontend Browser]]* :: 
-
-- *[[http://localhost:8080/manager/html][Tomcat7 Management Page]]* ::
 
 * Development Security
 The environment is intended as a disposable development evironment,

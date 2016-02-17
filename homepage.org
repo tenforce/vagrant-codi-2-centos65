@@ -5,6 +5,61 @@
 
 * Introduction
 
+There are two CODI development environments for available, these
+being:
+
+- UnifiedViews 2.3.0 environment :: which is defined by the
+     *install_uv_components.sh* script.
+- Frontend Data Browser :: the *install_frontend.sh* script
+     defined this enviroment
+
+Which one is provided depends on the installation intention, but in
+bother cases the scripts function in a three stage approach. These
+stages being defined:
+
+- DOWNLOAD_BUILD ::
+- SAVE_BUILT ::
+- INSTALL_BUILT ::
+
+** Installing in multiple STAGEs
+Using the /install script/ to setup for building and installing the
+software offline is a multi-stage process (which can be starting once
+the vagrant machine has been booted/created).
+
+1./ Set the DOWNLOAD_ALLOWED variable to "yes" (when connected to the
+    internet). Once logged in, in a terminal:
+
+    #+BEGIN_QUOTE
+    sudo DOWNLOAD_ALLOWED=yes ./install_uv_components.sh
+    #+END_QUOTE
+
+2./ Build the system at least once (so that the downloads are cached
+    in the /vagrant directory). Then:
+
+    #+BEGIN_QUOTE
+    sudo DOWNLOAD_ALLOWED=no STAGE=SAVE_BUILT ./install_uv_components.sh 
+    #+END_QUOTE
+
+    This will create a /BUILD.tar.gz/ file which should contain
+    everything necessary to install the built software on a compatible
+    system
+
+3./ Copy the /BUILD.tar.gz/ directory onto the remote
+    system. Uncompress it and untar it (/gzip -d BUILD.tar.gz; tar xvf
+    BUILD.tar/).
+
+4./ In the resulting directory, Rerun the installation script with the
+    STAGE set to INSTALL_BUILT.
+
+    #+BEGIN_QUOTE
+    sudo DOWNLOAD_ALLOWED=no STAGE=INSTALL_BUILT ./install_uv_components.sh
+    #+END_QUOTE
+
+Following this the links on the relevant links on the browser homepage
+will provide access to those facilities which have been installed.
+
+** UnifiedViews Installation
+
 The following tools are included in this DevEnv once it has been 
 fully constructed. 
 
@@ -14,12 +69,16 @@ fully constructed.
      
 - *MySQL* ::
 
-See the STAGES below for in the complete installation of the DevENV.
-     
 *Note:* 
 - This environment does not contain virtuoso.
 - Plugins available are taken from docker-unified-views dpus.zip
 - Virtualbox Guest additions do not always work as expected.
+
+** FrontEnd Web Interface
+
+- *[[http://data.consilium.europa.eu/browse][Frontend Browser]]* :: 
+
+- *[[http://localhost:8080/manager/html][Tomcat7 Management Page]]* ::
 
 * Development Security
 The environment is intended as a disposable development evironment,
@@ -34,7 +93,8 @@ all development work should be placed in a source code repository:
   directly connected to the internet, without changes to all the
   standard user accounts, public passwords, etc.
 
-* Installing UnifiedViews on the VM
+* UnifiedViews Installation
+** Installing UnifiedViews on the VM
 
 This vagrant box is intended to mimic the approach which will be used
 to installation on a clean system (such as one created by the *vagrant
@@ -68,7 +128,7 @@ in the /vagrant/downloads directory with a view to reducting the cost
 in the event of a rebuild of the systsem (downloading can be switched
 off using a variable at the top of the script).
 
-* Installing UV in multiple STAGEs
+** Installing UV in multiple STAGEs
 Using the install script to setup for building and installing the
 software offline is a multi-stage process (starting once the vagrant
 machine has been booted/created).
@@ -102,7 +162,7 @@ machine has been booted/created).
     sudo DOWNLOAD_ALLOWED=no STAGE=INSTALL_BUILT ./install_uv_components.sh
     #+END_QUOTE
 
-* Installing UV offline
+** Installing UV offline
 
 Using the install script to setup for building and installing the
 software offline is a multi-stage process.
@@ -131,7 +191,7 @@ The following outlines the basic path required:
 4./ Rerun the installation script with the DOWNLOAD_ALLOWED variable
     set to "no".
 
-* Using MS Sql Server
+** Using MS Sql Server
 
 For testing purposes the assumption here is that [[https://github.com/fgrehm/vagrant-mssql-express.git][Vagrant Test Machine]]
 or [[https://github.com/leezu/vagrant-mssql-express/][2014]] is up and running and that a database 'unifiedviews' has been
@@ -152,6 +212,8 @@ Notes:
 - Currently, UV 2.3.0 code is updated for mssql server (these
   updated files are located in downloads/updated-java)
 
+* FrontEnd Data Browser
+...
 * Environment Details  
 ** Main Software Versions
 

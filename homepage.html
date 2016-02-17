@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-02-02 di 15:31 -->
+<!-- 2016-02-17 wo 16:59 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>CODI-2 - DevEnv</title>
@@ -153,21 +153,134 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">1. Introduction</a></li>
-<li><a href="#orgheadline2">2. Development Security</a></li>
-<li><a href="#orgheadline3">3. Installing UnifiedViews on the VM</a></li>
-<li><a href="#orgheadline4">4. Installing UV in multiple STAGEs</a></li>
-<li><a href="#orgheadline5">5. Installing UV offline</a></li>
-<li><a href="#orgheadline6">6. Using MS Sql Server</a></li>
-<li><a href="#orgheadline7">7. Environment Details</a></li>
-<li><a href="#orgheadline8">8. Account Details</a></li>
+<li><a href="#orgheadline4">1. Introduction</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Installing in multiple STAGEs</a></li>
+<li><a href="#orgheadline2">1.2. UnifiedViews Installation</a></li>
+<li><a href="#orgheadline3">1.3. FrontEnd Web Interface</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline5">2. Development Security</a></li>
+<li><a href="#orgheadline10">3. UnifiedViews Installation</a>
+<ul>
+<li><a href="#orgheadline6">3.1. Installing UnifiedViews on the VM</a></li>
+<li><a href="#orgheadline7">3.2. Installing UV in multiple STAGEs</a></li>
+<li><a href="#orgheadline8">3.3. Installing UV offline</a></li>
+<li><a href="#orgheadline9">3.4. Using MS Sql Server</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline11">4. FrontEnd Data Browser</a></li>
+<li><a href="#orgheadline17">5. Environment Details</a>
+<ul>
+<li><a href="#orgheadline12">5.1. Main Software Versions</a></li>
+<li><a href="#orgheadline15">5.2. Main Directories Impacted</a>
+<ul>
+<li><a href="#orgheadline13">5.2.1. Working Directory</a></li>
+<li><a href="#orgheadline14">5.2.2. Logfiles</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline16">5.3. Services Created</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline18">6. Account Details</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+There are two CODI development environments for available, these
+being:
+</p>
+
+<dl class="org-dl">
+<dt>UnifiedViews 2.3.0 environment</dt><dd>which is defined by the
+<b>install_uv_components.sh</b> script.</dd>
+<dt>Frontend Data Browser</dt><dd>the <b>install_frontend.sh</b> script
+defined this enviroment</dd>
+</dl>
+
+<p>
+Which one is provided depends on the installation intention, but in
+bother cases the scripts function in a three stage approach. These
+stages being defined:
+</p>
+
+<dl class="org-dl">
+<dt>DOWNLOAD_BUILD</dt><dd></dd>
+
+<dt>SAVE_BUILT</dt><dd></dd>
+
+<dt>INSTALL_BUILT</dt><dd></dd>
+</dl>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Installing in multiple STAGEs</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Using the <i>install script</i> to setup for building and installing the
+software offline is a multi-stage process (which can be starting once
+the vagrant machine has been booted/created).
+</p>
+
+<p>
+1./ Set the DOWNLOAD_ALLOWED variable to "yes" (when connected to the
+    internet). Once logged in, in a terminal:
+</p>
+
+<blockquote>
+<p>
+sudo DOWNLOAD_ALLOWED=yes ./install_uv_components.sh
+</p>
+</blockquote>
+
+<p>
+2./ Build the system at least once (so that the downloads are cached
+    in the /vagrant directory). Then:
+</p>
+
+<blockquote>
+<p>
+sudo DOWNLOAD_ALLOWED=no STAGE=SAVE_BUILT ./install_uv_components.sh 
+</p>
+</blockquote>
+
+<p>
+This will create a <i>BUILD.tar.gz</i> file which should contain
+everything necessary to install the built software on a compatible
+system
+</p>
+
+<p>
+3./ Copy the <i>BUILD.tar.gz</i> directory onto the remote
+    system. Uncompress it and untar it (<i>gzip -d BUILD.tar.gz; tar xvf
+    BUILD.tar</i>).
+</p>
+
+<p>
+4./ In the resulting directory, Rerun the installation script with the
+    STAGE set to INSTALL_BUILT.
+</p>
+
+<blockquote>
+<p>
+sudo DOWNLOAD_ALLOWED=no STAGE=INSTALL_BUILT ./install_uv_components.sh
+</p>
+</blockquote>
+
+<p>
+Following this the links on the relevant links on the browser homepage
+will provide access to those facilities which have been installed.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> UnifiedViews Installation</h3>
+<div class="outline-text-3" id="text-1-2">
 <p>
 The following tools are included in this DevEnv once it has been 
 fully constructed. 
@@ -184,10 +297,6 @@ fully constructed.
 </dl>
 
 <p>
-See the STAGES below for in the complete installation of the DevENV.
-</p>
-
-<p>
 <b>Note:</b> 
 </p>
 <ul class="org-ul">
@@ -198,8 +307,21 @@ See the STAGES below for in the complete installation of the DevENV.
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2"><span class="section-number-2">2</span> Development Security</h2>
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> FrontEnd Web Interface</h3>
+<div class="outline-text-3" id="text-1-3">
+<dl class="org-dl">
+<dt><b><a href="http://data.consilium.europa.eu/browse">Frontend Browser</a></b></dt><dd></dd>
+
+
+<dt><b><a href="http://localhost:8080/manager/html">Tomcat7 Management Page</a></b></dt><dd></dd>
+</dl>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">2</span> Development Security</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 The environment is intended as a disposable development evironment,
@@ -219,9 +341,12 @@ standard user accounts, public passwords, etc.</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3"><span class="section-number-2">3</span> Installing UnifiedViews on the VM</h2>
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">3</span> UnifiedViews Installation</h2>
 <div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">3.1</span> Installing UnifiedViews on the VM</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 This vagrant box is intended to mimic the approach which will be used
 to installation on a clean system (such as one created by the <b>vagrant
@@ -272,9 +397,9 @@ off using a variable at the top of the script).
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4"><span class="section-number-2">4</span> Installing UV in multiple STAGEs</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">3.2</span> Installing UV in multiple STAGEs</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 Using the install script to setup for building and installing the
 software offline is a multi-stage process (starting once the vagrant
@@ -328,9 +453,9 @@ sudo DOWNLOAD_ALLOWED=no STAGE=INSTALL_BUILT ./install_uv_components.sh
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5"><span class="section-number-2">5</span> Installing UV offline</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.3</span> Installing UV offline</h3>
+<div class="outline-text-3" id="text-3-3">
 <p>
 Using the install script to setup for building and installing the
 software offline is a multi-stage process.
@@ -376,9 +501,9 @@ sudo DOWNLOAD_ALLOWED=yes ./install_uv_components.sh <i>email-account</i> <i>ema
 </div>
 </div>
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6"><span class="section-number-2">6</span> Using MS Sql Server</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">3.4</span> Using MS Sql Server</h3>
+<div class="outline-text-3" id="text-3-4">
 <p>
 For testing purposes the assumption here is that <a href="https://github.com/fgrehm/vagrant-mssql-express.git">Vagrant Test Machine</a>
 or <a href="https://github.com/leezu/vagrant-mssql-express/">2014</a> is up and running and that a database 'unifiedviews' has been
@@ -407,10 +532,22 @@ updated files are located in downloads/updated-java)</li>
 </ul>
 </div>
 </div>
+</div>
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7"><span class="section-number-2">7</span> Environment Details</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11"><span class="section-number-2">4</span> FrontEnd Data Browser</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+&#x2026;
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline17" class="outline-2">
+<h2 id="orgheadline17"><span class="section-number-2">5</span> Environment Details</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">5.1</span> Main Software Versions</h3>
+<div class="outline-text-3" id="text-5-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -492,10 +629,40 @@ updated files are located in downloads/updated-java)</li>
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="orgheadline8"><span class="section-number-2">8</span> Account Details</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">5.2</span> Main Directories Impacted</h3>
+<div class="outline-text-3" id="text-5-2">
+</div><div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13"><span class="section-number-4">5.2.1</span> Working Directory</h4>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14"><span class="section-number-4">5.2.2</span> Logfiles</h4>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">5.3</span> Services Created</h3>
+<div class="outline-text-3" id="text-5-3">
 <ul class="org-ul">
+<li>unifiedviews-backend</li>
+<li>tomcat</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-2">
+<h2 id="orgheadline18"><span class="section-number-2">6</span> Account Details</h2>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
+<li>Basic Accounts Created while installing
+
+<ul class="org-ul">
+<li>unifiedviews :</li>
+<li>tomcat7      :</li>
+</ul></li>
+
 <li><a href="http://localhost:8080/unifiedviews">Unified Views Account Details</a>::
 
 <ul class="org-ul">
@@ -541,7 +708,7 @@ Hence using docker is not possible.
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Paul Massey</p>
-<p class="date">Created: 2016-02-02 di 15:31</p>
+<p class="date">Created: 2016-02-17 wo 16:59</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

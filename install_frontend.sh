@@ -14,7 +14,7 @@ INSTALLDIR=`pwd`
 
 : ${MAVEN_OPTS:="-Xms256m -Xmx1024m -XX:PermSize=256m"}
 : ${BUILDDIR:=frontend_build}
-: ${CODI:=1}
+: ${CODI:=no}
 
    # Assume virtuoso/httpd server are on the same machine
 
@@ -149,7 +149,6 @@ build_council() {
 
 build_virtuoso() {
     check_installed automake libtool
-    
     pushd ${INSTALLDIR}/downloads
      git clone https://github.com/nvdk/virtuoso-rpm-builder.git
      useradd rpmbuild
@@ -173,7 +172,8 @@ save_built() {
     fi
     mkdir -p ${INSTALLDIR}/${BUILDDIR}
     pushd ${INSTALLDIR}/${BUILDDIR}
-      cp ${INSTALLDIR}/*.sh .
+      cp ${INSTALLDIR}/install_frontend.sh .
+      cp ${INSTALLDIR}/build*.sh .
       cp ${INSTALLDIR}/*.org .
       cp ${INSTALLDIR}/*.html .          
       cp -r ${INSTALLDIR}/config-files .
@@ -280,7 +280,7 @@ EOF
 #
 ########################################################################
 
-if [ ! $CODI ] 
+if [ "$CODI" = "no" ] 
 then
     install_editor
     install_maven3
@@ -295,7 +295,7 @@ check_installed java mvn git gcc gmake autoconf chkconfig
 
 case "${STAGE}" in
     DOWNLOAD_BUILD)
-	if [ ! $CODI ] 
+	if [ "$CODI" = "no" ] 
         then
 	    build_virtuoso
         fi

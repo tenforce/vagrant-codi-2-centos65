@@ -36,7 +36,7 @@ INSTALLDIR=`pwd`
 : ${MAVEN_OPTS:="-Xms256m -Xmx2048m "}
 #: ${MAVEN_OPTS:="-Xms256m -Xmx2048m -XX:PermSize=256m"}
 : ${BUILDDIR:=uv_build}
-: ${CODI:=1}
+: ${CODI:=yes}
 
   # Overwrite with a sesame.version = 2.8.9 (normally 2.8.1)
 
@@ -215,7 +215,7 @@ install_tomcat7_internal() {
 
 install_tomcat7() {
     echo "*** INFO: install_tomcat7"
-    if [ $CODI ] 
+    if [ "$CODI" = "yes" ] 
     then
        # WARNING - directory into which apache is unpacked is undefined
        install_tomcat7_internal
@@ -604,7 +604,8 @@ save_built() {
      rm -rf downloads/Core*
      rm -rf downloads/UV*
      rm -rf downloads/docker-*
-     cp ${INSTALLDIR}/*.sh .
+     cp ${INSTALLDIR}/install_uv_components.sh .
+     cp ${INSTALLDIR}/build*.sh .
      cp ${INSTALLDIR}/*.org .
      cp ${INSTALLDIR}/*.html .          
      cp -r ${INSTALLDIR}/config-files .
@@ -617,7 +618,7 @@ save_built() {
 }
 
 prepare_codi() {
-    if [ $CODI ] 
+    if [ "$CODI" = "yes" ] 
     then
 	mkdir -p /u01/app/tomcat7
         ln -s /u01/app/tomcat7 /usr/local/tomcat7
@@ -668,7 +669,7 @@ fi
 #   exit -2;
 # fi
 
-if [ ! $CODI ]
+if [ "$CODI" = "no" ]
 then 
     install_default;            # Main component installs
     install_webbrowser;

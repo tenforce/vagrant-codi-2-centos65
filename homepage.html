@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-02-17 wo 17:24 -->
+<!-- 2016-02-18 do 09:49 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
-<title>CODI-2 - DevEnv</title>
+<title>CODI-2 - DevEnv(s)</title>
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Paul Massey" />
 <style type="text/css">
@@ -148,7 +148,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">CODI-2 - DevEnv</h1>
+<h1 class="title">CODI-2 - DevEnv(s)</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -189,8 +189,7 @@ for the JavaScript code in this tag.
 <h2 id="orgheadline2"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-There are two CODI development environments for available, these
-being:
+There are two CODI development environments available, these being:
 </p>
 
 <dl class="org-dl">
@@ -199,38 +198,35 @@ being:
 included in this DevEnv once it has been fully constructed for
 the unifiedviews installation:
 
-<dl class="org-dl">
-<dt><b><a href="http://localhost:8080/unifiedviews">Unified Views 2.3.0</a>~</b></dt><dd>which is the main entry point to the
-UnifiedViews system.</dd>
+<ul class="org-ul">
+<li><b><a href="http://localhost:8080/unifiedviews">Unified Views 2.3.0</a>~</b> which is the main entry point to the
+UnifiedViews system.</li>
 
-<dt><b><a href="http://localhost:8080/manager/html">Tomcat7 Management Page</a></b></dt><dd></dd>
+<li><b><a href="http://localhost:8080/manager/html">Tomcat7 Management Page</a></b></li>
 
-
-<dt><b>MySQL</b></dt><dd></dd>
-</dl></dd>
+<li><b>MySQL</b></li>
+</ul></dd>
 
 <dt>Frontend Data Browser</dt><dd>the <b>install_frontend.sh</b> script
-defined this enviroment.
-<dl class="org-dl">
-<dt><b><a href="http://data.consilium.europa.eu/browse">Frontend Browser</a></b></dt><dd></dd>
+creates this enviroment. The resulting entry points are:
 
+<ul class="org-ul">
+<li><b><a href="http://data.consilium.europa.eu/browse">Frontend Browser</a></b></li>
 
-<dt><b><a href="http://localhost:8080/manager/html">Tomcat7 Management Page</a></b></dt><dd></dd>
-</dl></dd>
+<li><b><a href="http://localhost:8080/manager/html">Tomcat7 Management Page</a></b></li>
+</ul></dd>
 </dl>
-
-
 
 <p>
 Which one is provided depends on the installation intention, but in
-bother cases the scripts function in a three stage approach. These
-stages being defined:
+bother cases the scripts function following a three stage
+approach. These stages being defined:
 </p>
 
 <dl class="org-dl">
-<dt>DOWNLOAD_BUILD</dt><dd>which will likely require a connection to the
-internet to allow downloading of missing components to be
-recovered.</dd>
+<dt>DOWNLOAD_BUILD</dt><dd>this is the default STAGE, which will likely
+require a connection to the internet to allow downloading of
+missing components to be recovered.</dd>
 <dt>SAVE_BUILT</dt><dd>this will be used to create a <i>.tar.gz</i> file which
 will be used during the final installation stage (at this point
 there shouldn't be anything other that copying files required).</dd>
@@ -242,8 +238,8 @@ the location required to execute the software component.</dd>
 <b>Note:</b> 
 </p>
 <ul class="org-ul">
-<li>This environment does not contain virtuoso.</li>
-<li>Plugins available are taken from docker-unified-views dpus.zip</li>
+<li>The UV environment does not contain virtuoso.</li>
+<li>UV Plugins available are taken from docker-unified-views dpus.zip</li>
 <li>Virtualbox Guest additions do not always work as expected.</li>
 </ul>
 </div>
@@ -698,7 +694,7 @@ Hence using docker is not possible.
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Paul Massey</p>
-<p class="date">Created: 2016-02-17 wo 17:24</p>
+<p class="date">Created: 2016-02-18 do 09:49</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

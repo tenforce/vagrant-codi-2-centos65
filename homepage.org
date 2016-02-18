@@ -1,40 +1,25 @@
 #+SETUPFILE: ~/SpiderOak/Org/org-html-themes/setup/theme-readtheorg.setup
-#+TITLE: CODI-2 - DevEnv
+#+TITLE: CODI-2 - DevEnv(s)
 #+OPTIONS: ^:nil
 #+AUTHOR: Paul Massey
 
 * Introduction
 
-There are two CODI development environments for available, these
-being:
+There are two CODI development environments available, these being:
 
 - UnifiedViews 2.3.0 environment :: which is defined by the
-     *install_uv_components.sh* script. The following tools are
-     included in this DevEnv once it has been fully constructed for
-     the unifiedviews installation:
-
-     - *[[http://localhost:8080/unifiedviews][Unified Views 2.3.0]]~* :: which is the main entry point to the
-          UnifiedViews system.
-
-     - *[[http://localhost:8080/manager/html][Tomcat7 Management Page]]* ::
-     
-     - *MySQL* ::
+     *install_uv_components.sh* script. 
 
 - Frontend Data Browser :: the *install_frontend.sh* script
-     defined this enviroment.
-     - *[[http://data.consilium.europa.eu/browse][Frontend Browser]]* :: 
-
-     - *[[http://localhost:8080/manager/html][Tomcat7 Management Page]]* ::
-
-
+     creates this enviroment. 
 
 Which one is provided depends on the installation intention, but in
-bother cases the scripts function in a three stage approach. These
-stages being defined:
+bother cases the scripts function following a three stage
+approach. These stages being defined:
 
-- DOWNLOAD_BUILD :: which will likely require a connection to the
-     internet to allow downloading of missing components to be
-     recovered.
+- DOWNLOAD_BUILD :: this is the default STAGE, which will likely
+     require a connection to the internet to allow downloading of
+     missing components to be recovered.
 - SAVE_BUILT :: this will be used to create a /.tar.gz/ file which
      will be used during the final installation stage (at this point
      there shouldn't be anything other that copying files required).
@@ -42,11 +27,12 @@ stages being defined:
      the location required to execute the software component.
 
 *Note:* 
-- This environment does not contain virtuoso.
-- Plugins available are taken from docker-unified-views dpus.zip
+- The UV environment does not contain virtuoso.
+- UV Plugins available are taken from docker-unified-views dpus.zip
 - Virtualbox Guest additions do not always work as expected.
 
 ** Installing in multiple STAGEs
+
 Using the /install script/ to setup for building and installing the
 software offline is a multi-stage process (which can be starting once
 the vagrant machine has been booted/created).

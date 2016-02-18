@@ -717,7 +717,12 @@ case "$STAGE" in
 	prepare_codi;
 	copy_uv_plugins;
 	install_uv;
-
+	if [ "${CODI}" = "no" ]
+	then
+	    # Redirect homepages
+	    mv /usr/share/doc/HTML/index.html /usr/share/doc/HTML/homepage_orig.html
+	    cp /vagrant/homepage_uv.html /usr/share/doc/HTML/index.html
+	fi
 	# It should all be installed, so final checks
 	check_uv_installation;
 	;;

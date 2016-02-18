@@ -315,6 +315,13 @@ case "${STAGE}" in
 	else
 	    echo "*** INFO: virtuoso will need to be configured applicationContext.xml"
 	fi
+
+	# Update the browser homepage to point to what is now relevant for user
+	if [ "$CODI" = "no" ]
+	then
+	    mv /usr/share/doc/HTML/index.html /usr/share/doc/HTML/homepage_orig.html
+	    cp /vagrant/homepage_frontend.html /usr/share/doc/HTML/index.html
+        fi
        ;;
     *)
 	echo "*** ERROR: Options are ..."

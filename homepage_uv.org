@@ -1,0 +1,60 @@
+#+SETUPFILE: ~/SpiderOak/Org/org-html-themes/setup/theme-readtheorg.setup
+#+TITLE: CODI-2 - UnifiedViews DevEnv
+#+OPTIONS: ^:nil
+#+AUTHOR: Paul Massey
+
+* Introduction
+
+The following tools are included in this DevEnv once it has been fully
+constructed for the unifiedviews installation:
+
+- *[[http://localhost:8080/unifiedviews][Unified Views 2.3.0]]~* which is the main entry point to the
+  UnifiedViews system.
+
+- *[[http://localhost:8080/manager/html][Tomcat7 Management Page]]* 
+     
+- *MySQL* 
+ 
+- [[file:homepage_orig.html][Installation Instructions]]
+
+* Development Security
+The environment is intended as a disposable development evironment,
+all development work should be placed in a source code repository:
+
+- Files in /vagrant are shared with the host system, so to backup
+  pipelines, etc. the files need to be moved there (or preferable
+  saved directly from this machine using git, svn, etc.).
+
+- Vagrant VM's are intended as development environments (i.e. to be
+  used behind a firewall, etc.), they are */not/* intended to be
+  directly connected to the internet, without changes to all the
+  standard user accounts, public passwords, etc.
+* Account Details
+
+- Basic Accounts Created while installing
+
+  - unifiedviews : 
+  - tomcat7      :
+
+- [[http://localhost:8080/unifiedviews][Unified Views Account Details]]::
+     
+  - Login account  : /admin/
+ 
+  - Login password : /test/
+
+- Mysql :
+
+  - Login account  : /root/
+  - LOgin password : /root/
+
+- [[http://localhost:8080/manager/html][Tomcat7 Manager]] :
+
+  - Login account  : /tomcat/
+  - Login password : /tomcat/
+
+- When using the mssql vagrnt machines (mssql admin 
+  account is)
+
+  - Login account  : /sa/
+  - Login password : /#Sa...!/
+

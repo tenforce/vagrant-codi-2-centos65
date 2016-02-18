@@ -1,0 +1,29 @@
+#+SETUPFILE: ~/SpiderOak/Org/org-html-themes/setup/theme-readtheorg.setup
+#+TITLE: CODI-2 - FrontEnd DevEnv
+#+OPTIONS: ^:nil
+#+AUTHOR: Paul Massey
+
+* Introduction
+
+The resulting entry points are:
+
+- [[http://data.consilium.europa.eu/browse][Frontend Browser]]
+
+- [[http://localhost:8080/manager/html][Tomcat7 Management Page]]
+
+- [[file:homepage_orig.html][Installation Instructions]]
+
+* Development Security
+The environment is intended as a disposable development evironment,
+all development work should be placed in a source code repository:
+
+- Files in /vagrant are shared with the host system, so to backup
+  pipelines, etc. the files need to be moved there (or preferable
+  saved directly from this machine using git, svn, etc.).
+
+- Vagrant VM's are intended as development environments (i.e. to be
+  used behind a firewall, etc.), they are */not/* intended to be
+  directly connected to the internet, without changes to all the
+  standard user accounts, public passwords, etc.
+
+* Account Details

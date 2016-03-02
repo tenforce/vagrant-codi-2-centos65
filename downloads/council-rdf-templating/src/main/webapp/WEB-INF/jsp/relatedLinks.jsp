@@ -10,8 +10,7 @@
     <i class="fa fa-link fa-3x pull-left"></i>
     <ul class="link-list">
         <li><a href="/sparql">Query data via API</a></li>
-        <li><a href="https://open-data.europa.eu/en/data/dataset/council-votes-on-legislative-acts" class="external-link" target="_blank">Dataset description on EU open data portal</a></li>
-        <li><a href="/data/public_voting.ttl" class="external-link" target="_blank">Dataset description in VOID</a></li>
-        <li><a href="#" class="external-link" target="_blank">Manual on how-to work with the dataset and more information about the linked open dataset</a></li>
+	<li><a href="http://www.consilium.europa.eu/en/general-secretariat/corporate-policies/transparency/open-data/">Open Data Documentation</a></li>
+	<li><a href="http://open-data.europa.eu/en/data/publisher/consil">Dataset descriptions on the EU Open Data portal</a></li>
     </ul>
 </div>

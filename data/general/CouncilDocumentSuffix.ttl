@@ -1,0 +1,72 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns1:	<http://data.consilium.europa.eu/id/taxonomy/CouncilDocumentSuffix/concept/> .
+@prefix skos:	<http://www.w3.org/2004/02/skos/core#> .
+ns1:COR	rdf:type	skos:Concept .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix ns4:	<http://purl.org/dc/terms/> .
+ns1:COR	ns4:created	"2015-11-26T14:18:26Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-02T15:09:33Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"COR" ;
+	skos:prefLabel	"corrigendum"@en .
+@prefix ns5:	<http://data.consilium.europa.eu/def/taxonomy/> .
+ns1:COR	skos:topConceptOf	ns5:CouncilDocumentSuffix .
+ns1:ADD	rdf:type	skos:Concept ;
+	ns4:created	"2015-11-26T14:18:17Z"^^xsd:dateTime ;
+	ns4:modified	"2015-11-26T14:24:39Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"ADD" ;
+	skos:prefLabel	"addendum"@en ;
+	skos:topConceptOf	ns5:CouncilDocumentSuffix .
+ns1:EXT	rdf:type	skos:Concept ;
+	ns4:created	"2015-11-26T14:18:31Z"^^xsd:dateTime ;
+	ns4:modified	"2015-11-26T14:25:12Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"EXT" ;
+	skos:prefLabel	"extract"@en ;
+	skos:topConceptOf	ns5:CouncilDocumentSuffix .
+ns1:INT	rdf:type	skos:Concept ;
+	ns4:created	"2015-11-26T14:18:03Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-02T15:09:44Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"INT" ;
+	skos:prefLabel	"original"@en ;
+	skos:topConceptOf	ns5:CouncilDocumentSuffix .
+ns1:DCL	rdf:type	skos:Concept ;
+	ns4:created	"2015-11-26T14:18:48Z"^^xsd:dateTime ;
+	ns4:modified	"2015-11-26T14:25:03Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"DCL" ;
+	skos:prefLabel	"declassified document"@en ;
+	skos:topConceptOf	ns5:CouncilDocumentSuffix .
+ns1:REV	rdf:type	skos:Concept ;
+	ns4:created	"2015-11-26T14:18:10Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-02T15:09:50Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"REV" ;
+	skos:prefLabel	"revision"@en ;
+	skos:topConceptOf	ns5:CouncilDocumentSuffix .
+ns5:CouncilDocumentSuffix	rdf:type	skos:ConceptScheme ;
+	ns4:created	"2016-02-01T12:22:07Z"^^xsd:dateTime .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+ns5:CouncilDocumentSuffix	rdfs:label	"CouncilDocumentSuffix"@en ;
+	ns4:creator	"codi"@en ;
+	ns4:publisher	"GSC"@en ;
+	ns4:subject	"Codi Taxonomies"@en .
+@prefix ns7:	<http://semantic-web.at/ontologies/csw.owl#> .
+ns5:CouncilDocumentSuffix	ns7:hierarchyRoot	1 ;
+	ns7:hierarchyRootType	skos:ConceptScheme ;
+	ns4:title	"CouncilDocumentSuffix"@en ;
+	ns4:description	"All taxonomies relevant for the Codi project"@en ;
+	skos:hasTopConcept	ns1:COR ,
+		ns1:ADD ,
+		ns1:EXT ,
+		ns1:INT ,
+		ns1:DCL ,
+		ns1:REV .

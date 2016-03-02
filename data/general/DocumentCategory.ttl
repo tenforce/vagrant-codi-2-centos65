@@ -1,0 +1,274 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns1:	<http://data.consilium.europa.eu/id/taxonomy/DocumentCategory/concept/> .
+@prefix skos:	<http://www.w3.org/2004/02/skos/core#> .
+ns1:misc	rdf:type	skos:Concept .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix ns4:	<http://purl.org/dc/terms/> .
+ns1:misc	ns4:created	"2015-12-02T10:41:29Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:59:31Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"MISC" ;
+	skos:prefLabel	"miscellaneous"@en .
+@prefix ns5:	<http://data.consilium.europa.eu/def/taxonomy/> .
+ns1:misc	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"This value is used when a document does not belong to any of the categories identified above. Some of these documents are of a temporary nature and may no longer be available."@en .
+ns1:ds	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:40:05Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:57:53Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"DS" ;
+	skos:prefLabel	"document de s\u00E9ance"@fr ,
+		"conference room paper"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"conference room paper"@en ,
+		"document de s\u00E9ance"@fr .
+ns1:sp	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:41:36Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T09:01:15Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"SP" ;
+	skos:prefLabel	"special"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"special"@en .
+ns1:st	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:39:50Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T09:01:30Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"ST" ;
+	skos:prefLabel	"standard"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"standard"@en .
+ns1:cg	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:42:08Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:52:33Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"CG" ;
+	skos:prefLabel	"intergovernmental conference"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"intergovernmental conference"@en .
+ns1:aa	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:41:43Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:38:33Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"AA" ;
+	skos:prefLabel	"accession document - AA"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"accession document"@en .
+ns1:t-old	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:40:45Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T09:02:04Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"T-old" ;
+	skos:prefLabel	"old telexes"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"old telexes"@en .
+ns1:circ	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:40:59Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:54:20Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"CIRC" ;
+	skos:prefLabel	"Coordinators' Group on Free Movement of Persons"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"documents related to the activities of the 'Groupe des coordonnateurs Libre circulation des personnes' (active between 1986-1993)"@en .
+ns1:r	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:41:13Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:52:02Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"R" ;
+	skos:prefLabel	"old category of documents - R"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"old category of documents (in use until 31/12/1978)"@en .
+ns1:wgi	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:41:04Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T09:02:49Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"WGI" ;
+	skos:prefLabel	"Working group on Immigration"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"Documents related to the activities of the 'Ad hoc Working group on Immigration' (active between 1986-1993)"@en .
+ns1:de	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:43:07Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:56:50Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"DE" ;
+	skos:prefLabel	"decisions of the Secretary-General"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"decisions of the Secretary-General"@en .
+ns1:c	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:41:27Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:51:38Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"C" ;
+	skos:prefLabel	"old category of documents - C"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"old category of documents (in use until 31/12/1978)"@en .
+ns1:cp	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:42:30Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:58:38Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"CP" ;
+	skos:prefLabel	"staff communication"@en ,
+		"communication au personnel"@fr ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"staff communication"@en ,
+		"communication au personnel"@fr .
+ns1:ad	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:42:02Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:49:53Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"AD" ;
+	skos:prefLabel	"accession document - AD"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"accession document"@en .
+ns1:pe	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:42:23Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:59:46Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"PE" ;
+	skos:prefLabel	"European Parliament"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"European Parliament"@en .
+ns1:wk	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:40:21Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T09:03:06Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"WK" ;
+	skos:prefLabel	"working document"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"working document"@en .
+ns1:ac	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:41:55Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:38:51Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"AC" ;
+	skos:prefLabel	"accession document - AC"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"accession document"@en .
+ns1:t	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:40:36Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T09:01:45Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"T" ;
+	skos:prefLabel	"telexes"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"telexes"@en .
+ns1:sn	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:40:28Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T09:01:01Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"SN" ;
+	skos:prefLabel	"sans num\u00E9ro"@fr ,
+		"without number"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"sans num\u00E9ro"@fr ,
+		"without number"@en .
+ns1:cm	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:39:58Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:54:34Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"CM" ;
+	skos:prefLabel	"communication"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"communication"@en .
+ns1:cv	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:42:15Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:56:38Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"CV" ;
+	skos:prefLabel	"European Convention"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"European Convention"@en .
+ns1:i	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:41:19Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:51:51Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"I" ;
+	skos:prefLabel	"old category of documents - I"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"old category of documents (in use until 31/12/1978)"@en .
+ns1:coreu	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:40:52Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:55:02Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"COREU" ;
+	skos:prefLabel	"Correspondence Europ\u00E9enne"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"CORrespondence EUrop\u00E9enne"@en .
+ns1:s	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:41:16Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:52:14Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"S" ;
+	skos:prefLabel	"old category of documents - S"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"old category of documents (in use until 31/12/1978)"@en .
+ns1:md	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T10:40:13Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:59:01Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"MD" ;
+	skos:prefLabel	"meeting documents"@en ;
+	skos:topConceptOf	ns5:DocumentCategory ;
+	skos:definition	"meeting documents"@en .
+ns5:DocumentCategory	rdf:type	skos:ConceptScheme ;
+	ns4:created	"2016-02-01T12:38:11Z"^^xsd:dateTime .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+ns5:DocumentCategory	rdfs:label	"DocumentCategory"@en ;
+	ns4:creator	"codi"@en ;
+	ns4:publisher	"GSC"@en ;
+	ns4:subject	"Codi Taxonomies"@en .
+@prefix ns7:	<http://semantic-web.at/ontologies/csw.owl#> .
+ns5:DocumentCategory	ns7:hierarchyRoot	1 ;
+	ns7:hierarchyRootType	skos:ConceptScheme ;
+	ns4:title	"DocumentCategory"@en ;
+	ns4:description	"All taxonomies relevant for the Codi project"@en ;
+	skos:hasTopConcept	ns1:i ,
+		ns1:coreu ,
+		ns1:s ,
+		ns1:md ,
+		ns1:aa ,
+		ns1:t-old ,
+		ns1:circ ,
+		ns1:r ,
+		ns1:wgi ,
+		ns1:de ,
+		ns1:c ,
+		ns1:cp ,
+		ns1:ad ,
+		ns1:pe ,
+		ns1:wk ,
+		ns1:ac ,
+		ns1:t ,
+		ns1:sn ,
+		ns1:cm ,
+		ns1:cv ,
+		ns1:misc ,
+		ns1:ds ,
+		ns1:sp ,
+		ns1:st ,
+		ns1:cg .

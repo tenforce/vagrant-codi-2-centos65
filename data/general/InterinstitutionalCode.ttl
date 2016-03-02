@@ -1,0 +1,132 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns1:	<http://data.consilium.europa.eu/id/taxonomy/InterinstitutionalCode/concept/> .
+@prefix skos:	<http://www.w3.org/2004/02/skos/core#> .
+ns1:cnc	rdf:type	skos:Concept .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix ns4:	<http://purl.org/dc/terms/> .
+ns1:cnc	ns4:created	"2015-12-02T14:31:22Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:27:37Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"CNC" ;
+	skos:prefLabel	"consultation of the Court of Auditors"@en .
+@prefix ns5:	<http://data.consilium.europa.eu/def/taxonomy/> .
+ns1:cnc	skos:topConceptOf	ns5:InterinstitutionalCode ;
+	skos:definition	"consultation of the Court of Auditors"@en .
+ns1:cnb	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T14:31:16Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:27:17Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"CNB" ;
+	skos:prefLabel	"consultation of the European Central Bank"@en ;
+	skos:topConceptOf	ns5:InterinstitutionalCode ;
+	skos:definition	"consultation of the European Central Bank"@en .
+ns1:acc	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T14:29:34Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:25:57Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"ACC" ;
+	skos:prefLabel	"agreement"@en ;
+	skos:topConceptOf	ns5:InterinstitutionalCode ;
+	skos:definition	"agreement"@en .
+ns1:nle	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T14:31:40Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:29:59Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"NLE" ;
+	skos:prefLabel	"proc\u00E9dures non l\u00E9gislatives"@fr ,
+		"non legislative procedure"@en ;
+	skos:topConceptOf	ns5:InterinstitutionalCode ;
+	skos:definition	"proc\u00E9dures non l\u00E9gislatives"@fr ,
+		"non legislative procedure"@en .
+ns1:avc	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T14:31:10Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:26:59Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"AVC" ;
+	skos:prefLabel	"assent procedure"@en ;
+	skos:topConceptOf	ns5:InterinstitutionalCode ;
+	skos:definition	"assent procedure"@en .
+ns1:dea	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T14:32:35Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:28:32Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"DEA" ;
+	skos:prefLabel	"delegated act procedure"@en ;
+	skos:topConceptOf	ns5:InterinstitutionalCode ;
+	skos:definition	"delegated act procedure"@en .
+ns1:syn	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T14:32:47Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:30:48Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"SYN" ;
+	skos:prefLabel	"corporation procedure"@en ;
+	skos:topConceptOf	ns5:InterinstitutionalCode ;
+	skos:definition	"Corporation procedure"@en .
+ns1:app	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T14:31:00Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:26:28Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"APP" ;
+	skos:prefLabel	"consent of the European Parliament"@en ,
+		"approbation du Parlement Europ\u00E9en"@fr ;
+	skos:topConceptOf	ns5:InterinstitutionalCode ;
+	skos:definition	"approbation du Parlement Europ\u00E9en"@fr ,
+		"consent of the European Parliament"@en .
+ns1:cns	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T14:31:29Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:27:56Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"CNS" ;
+	skos:prefLabel	"consultation of the European Parliament"@en ;
+	skos:topConceptOf	ns5:InterinstitutionalCode ;
+	skos:definition	"consultation of the European Parliament"@en .
+ns1:cod	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T14:31:34Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:28:16Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"COD" ;
+	skos:prefLabel	"ordinary legislative procedure"@en ;
+	skos:topConceptOf	ns5:InterinstitutionalCode ;
+	skos:definition	"ordinary legislative procedure"@en .
+ns1:prt	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T14:32:31Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-08T08:30:23Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"PRT" ;
+	skos:prefLabel	"the Protocol on Social Policy"@en ;
+	skos:topConceptOf	ns5:InterinstitutionalCode ;
+	skos:definition	"Code for procedures falling under the Protocol on Social Policy"@en .
+ns5:InterinstitutionalCode	rdf:type	skos:ConceptScheme ;
+	ns4:created	"2016-02-01T12:39:08Z"^^xsd:dateTime .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+ns5:InterinstitutionalCode	rdfs:label	"InterinstitutionalCode"@en ;
+	ns4:creator	"codi"@en ;
+	ns4:publisher	"GSC"@en ;
+	ns4:subject	"Codi Taxonomies"@en .
+@prefix ns7:	<http://semantic-web.at/ontologies/csw.owl#> .
+ns5:InterinstitutionalCode	ns7:hierarchyRoot	1 ;
+	ns7:hierarchyRootType	skos:ConceptScheme ;
+	ns4:title	"InterinstitutionalCode"@en ;
+	ns4:description	"All taxonomies relevant for the Codi project"@en ;
+	skos:hasTopConcept	ns1:cns ,
+		ns1:cod ,
+		ns1:prt ,
+		ns1:avc ,
+		ns1:dea ,
+		ns1:syn ,
+		ns1:app ,
+		ns1:cnc ,
+		ns1:cnb ,
+		ns1:acc ,
+		ns1:nle .

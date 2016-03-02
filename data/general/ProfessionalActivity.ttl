@@ -1,0 +1,264 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos:	<http://www.w3.org/2004/02/skos/core#> .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/academic%20world>	rdf:type	skos:Concept .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix ns3:	<http://purl.org/dc/terms/> .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/academic%20world>	ns3:created	"2015-12-10T11:59:08Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-10T11:59:22Z"^^xsd:dateTime .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/academic%20world>	rdfs:label	"academic world"@en ;
+	ns3:creator	"codi" .
+@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/academic%20world>	owl:deprecated	1 ;
+	skos:narrower	<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/university%20research> .
+@prefix ns6:	<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/> .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/academic%20world>	skos:narrower	ns6:library ;
+	ns3:contributor	"codi" ;
+	skos:prefLabel	"academic world"@en .
+@prefix ns7:	<http://data.consilium.europa.eu/def/taxonomy/> .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/academic%20world>	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/civil%20society>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-10T11:56:58Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-10T12:00:09Z"^^xsd:dateTime ;
+	rdfs:label	"civil society"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	skos:narrower	<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/industrial%2Fcommercial%20sector> ,
+		ns6:ngos ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/environmental%20lobby> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/other%20institutions> ,
+		ns6:consultant ;
+	ns3:contributor	"codi" ;
+	skos:prefLabel	"civil society"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+ns7:ProfessionalActivity	rdf:type	skos:ConceptScheme ;
+	ns3:created	"2016-02-01T12:41:38Z"^^xsd:dateTime ;
+	rdfs:label	"ProfessionalActivity"@en ;
+	ns3:creator	"codi"@en ;
+	ns3:publisher	"GSC"@en ;
+	ns3:subject	"Codi Taxonomies"@en .
+@prefix ns8:	<http://semantic-web.at/ontologies/csw.owl#> .
+ns7:ProfessionalActivity	ns8:hierarchyRoot	1 ;
+	ns8:hierarchyRootType	skos:ConceptScheme ;
+	ns3:title	"ProfessionalActivity"@en ;
+	ns3:description	"All taxonomies relevant for the Codi project"@en ;
+	skos:hasTopConcept	<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/13> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/8> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/41> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/17> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/19> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/23> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/16> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/24> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/2> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/3> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/1> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/4> ,
+		<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/20> .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/23>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:14:13Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:23:14Z"^^xsd:dateTime ;
+	rdfs:label	"agency"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"23" ;
+	skos:prefLabel	"agency"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/16>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:15:29Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:22:23Z"^^xsd:dateTime ;
+	rdfs:label	"others"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"16" ;
+	skos:prefLabel	"others"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/24>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:15:04Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T11:33:15Z"^^xsd:dateTime ;
+	rdfs:label	"european agency"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"24" ;
+	skos:prefLabel	"european agency"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/41>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T12:26:01Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:26:06Z"^^xsd:dateTime ;
+	rdfs:label	"member state"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"41" ;
+	skos:prefLabel	"member state"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/17>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:13:23Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:23:00Z"^^xsd:dateTime ;
+	rdfs:label	"MEP or Assistant of MEP"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"17" ;
+	skos:prefLabel	"MEP or Assistant of MEP"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/19>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:14:07Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:20:45Z"^^xsd:dateTime ;
+	rdfs:label	"international organization"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"19" ;
+	skos:prefLabel	"international organization"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/11>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:13:11Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-10T12:00:17Z"^^xsd:dateTime ;
+	rdfs:label	"other institutions"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	skos:broader	<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/civil%20society> ;
+	ns3:contributor	"codi" ;
+	skos:notation	"11" ;
+	skos:prefLabel	"other institutions"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/13>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:13:54Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:26:56Z"^^xsd:dateTime ;
+	rdfs:label	"missions"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"13" ;
+	skos:prefLabel	"missions"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/9>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:12:57Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-10T11:59:28Z"^^xsd:dateTime ;
+	rdfs:label	"library"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	skos:broader	<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/academic%20world> ;
+	ns3:contributor	"codi" ;
+	skos:notation	"9" ;
+	skos:prefLabel	"library"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/21>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:14:02Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-10T11:58:40Z"^^xsd:dateTime ;
+	rdfs:label	"consultant"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	skos:broader	<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/civil%20society> ;
+	ns3:contributor	"codi" ;
+	skos:notation	"21" ;
+	skos:prefLabel	"consultant"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/8>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:14:44Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:22:01Z"^^xsd:dateTime ;
+	rdfs:label	"not specified"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"8" ;
+	skos:prefLabel	"not specified"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/6>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:13:40Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-10T11:58:42Z"^^xsd:dateTime ;
+	rdfs:label	"industrial/commercial sector"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	skos:broader	<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/civil%20society> ;
+	ns3:contributor	"codi" ;
+	skos:notation	"6" ;
+	skos:prefLabel	"industrial/commercial sector"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/1>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:13:17Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:22:50Z"^^xsd:dateTime ;
+	rdfs:label	"member of the E.P."@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"1" ;
+	skos:prefLabel	"member of the E.P."@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/4>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:14:26Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:20:21Z"^^xsd:dateTime ;
+	rdfs:label	"journalist"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"4" ;
+	skos:prefLabel	"journalist"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/20>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:15:40Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:19:51Z"^^xsd:dateTime ;
+	rdfs:label	"politician"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"20" ;
+	skos:prefLabel	"politician"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/2>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:13:30Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:23:27Z"^^xsd:dateTime ;
+	rdfs:label	"lobbies"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"2" ;
+	skos:prefLabel	"lobbies"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/22>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:13:47Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-10T11:58:41Z"^^xsd:dateTime ;
+	rdfs:label	"NGOs"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	skos:broader	<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/civil%20society> ;
+	ns3:contributor	"codi" ;
+	skos:notation	"22" ;
+	skos:prefLabel	"NGOs"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/10>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:13:05Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-10T11:58:43Z"^^xsd:dateTime ;
+	rdfs:label	"environmental lobby"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	skos:broader	<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/civil%20society> ;
+	ns3:contributor	"codi" ;
+	skos:notation	"10" ;
+	skos:prefLabel	"environmental lobby"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/3>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:14:21Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-03T12:18:07Z"^^xsd:dateTime ;
+	rdfs:label	"lawyer"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns3:contributor	"codi" ;
+	skos:notation	"3" ;
+	skos:prefLabel	"lawyer"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .
+<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/5>	rdf:type	skos:Concept ;
+	ns3:created	"2015-12-03T09:13:35Z"^^xsd:dateTime ;
+	ns3:modified	"2015-12-10T11:59:27Z"^^xsd:dateTime ;
+	rdfs:label	"university research"@en ;
+	ns3:creator	"codi" ;
+	owl:deprecated	1 ;
+	skos:broader	<http://data.consilium.europa.eu/id/taxonomy/ProfessionalActivity/concept/academic%20world> ;
+	ns3:contributor	"codi" ;
+	skos:notation	"5" ;
+	skos:prefLabel	"university research"@en ;
+	skos:topConceptOf	ns7:ProfessionalActivity .

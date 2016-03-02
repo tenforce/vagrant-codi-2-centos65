@@ -1,0 +1,157 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns1:	<http://data.consilium.europa.eu/def/taxonomy/> .
+@prefix skos:	<http://www.w3.org/2004/02/skos/core#> .
+ns1:TypeOfReply	rdf:type	skos:ConceptScheme .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix ns4:	<http://purl.org/dc/terms/> .
+ns1:TypeOfReply	ns4:created	"2016-02-01T12:46:36Z"^^xsd:dateTime .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+ns1:TypeOfReply	rdfs:label	"TypeOfReply"@en ;
+	ns4:creator	"codi"@en ;
+	ns4:publisher	"GSC"@en ;
+	ns4:subject	"Codi Taxonomies"@en .
+@prefix ns6:	<http://semantic-web.at/ontologies/csw.owl#> .
+ns1:TypeOfReply	ns6:hierarchyRoot	1 ;
+	ns6:hierarchyRootType	skos:ConceptScheme ;
+	ns4:title	"TypeOfReply"@en ;
+	ns4:description	"All taxonomies relevant for the Codi project"@en ;
+	skos:hasTopConcept	<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/2.pa> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.1a.3> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.2.2> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.3(ii)> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/1> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.1b> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.2.3> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.1a.4> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.1a.2> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/1.pa> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.1a.1> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/2> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.2.1> ,
+		<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.3(i)> .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.2.3>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:37:26Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:43:07Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"4.2.3" ;
+	skos:prefLabel	"4.2.3"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council refused access to protect inspections, investigations and audits. If preceded by the values 1.pa, only parts of the document were refused based on this exception."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.1a.4>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:36:57Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:42:39Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"4.1a.4" ;
+	skos:prefLabel	"4.1a.4"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council refused access to protect the public interest as regards the financial, monetary or economic policy of the EU or a Member State. If preceded by the value 1.pa, only parts of the document were refused based on this exception."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.1a.2>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:36:44Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:42:19Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"4.1a.2" ;
+	skos:prefLabel	"4.1a.2"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council refused access to protect the public interest as regards defence and military matters. If preceded by the value 1.pa, only parts of the document were refused based on this exception."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/1.pa>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:36:10Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:41:37Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"1.pa" ;
+	skos:prefLabel	"1.pa"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council gave partial access to the document. If applicable,  the document is made partially available in the Council's public register. This value always requires a further value."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.1a.1>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:36:36Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:42:10Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"4.1a.1" ;
+	skos:prefLabel	"4.1a.1"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council refused access to protect the public interest as regards public security. If preceded by the value 1.pa, only parts of the document were refused based on this exception."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/2>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:35:57Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:41:43Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"2" ;
+	skos:prefLabel	"2"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council gave access to the document, however, due to technical reasons the document could not be made available in the Council's public register (e.g. documents dated before 1999)."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.2.1>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:37:13Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:42:52Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"4.2.1" ;
+	skos:prefLabel	"4.2.1"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council refused access to protect commercial interests. If preceded by the value 1.pa, only parts of the document were refused based on this exception."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.3(i)>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:37:33Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:43:21Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"4.3(i)" ;
+	skos:prefLabel	"4.3(i)"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council refused access to protect its decision-making process during ongoing negotiations. If preceded by the values 1.pa, only parts of the document were refused based on this exception."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/2.pa>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:36:20Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:41:51Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"2.pa" ;
+	skos:prefLabel	"2.pa"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council gave partial access to the document, however, due to technical reasons the document could not be made partially available in the Council's public register (e.g. documents dated before 1999). This value always requires a further value."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.1a.3>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:36:50Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:42:28Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"4.1a.3" ;
+	skos:prefLabel	"4.1a.3"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council refused access to protect the public interest as regards international relations. If preceded by the value 1.pa, only parts of the document were refused based on this exception."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.2.2>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:37:19Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:42:59Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"4.2.2" ;
+	skos:prefLabel	"4.2.2"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council refused access to protect court proceedings and legal advice. If preceded by the value 1.pa, only parts of the document were refused based on this exception."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.3(ii)>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:37:43Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:43:31Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"4.3(ii)" ;
+	skos:prefLabel	"4.3(ii)"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council refused access to protect its decision-making process after the decision is taken. If preceded by the values 1.pa, only parts of the document were refused based on this exception."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/1>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:35:53Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:41:07Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"1" ;
+	skos:prefLabel	"1"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council gave access to the document. If applicable, the document is made available in the Council's public register."@en .
+<http://data.consilium.europa.eu/id/taxonomy/TypeOfReply/concept/4.1b>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T08:37:04Z"^^xsd:dateTime ;
+	ns4:modified	"2016-02-01T14:42:45Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"4.1b" ;
+	skos:prefLabel	"4.1b"@en ;
+	skos:topConceptOf	ns1:TypeOfReply ;
+	skos:definition	"This value means that the General Secretariat/Council refused access to protect personal data. If preceded by the value 1.pa, only parts of the document were refused based on this exception."@en .

@@ -1,0 +1,36 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns1:	<http://data.consilium.europa.eu/id/taxonomy/GeographicalOrigin/concept/> .
+@prefix skos:	<http://www.w3.org/2004/02/skos/core#> .
+ns1:nnn	rdf:type	skos:Concept .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix ns4:	<http://purl.org/dc/terms/> .
+ns1:nnn	ns4:created	"2016-02-01T11:19:21Z"^^xsd:dateTime ;
+	ns4:creator	"codi"@en ;
+	ns4:contributor	"codi" ;
+	skos:notation	"NNN" ;
+	skos:prefLabel	"not known"@en .
+@prefix ns5:	<http://data.consilium.europa.eu/def/taxonomy/> .
+ns1:nnn	skos:topConceptOf	ns5:GeographicalOrigin ;
+	skos:definition	"not known"@en .
+ns1:xxx	rdf:type	skos:Concept ;
+	ns4:created	"2016-02-01T11:19:21Z"^^xsd:dateTime ;
+	ns4:creator	"codi"@en ;
+	ns4:contributor	"codi" ;
+	skos:notation	"XXX" ;
+	skos:prefLabel	"internal request"@en ;
+	skos:topConceptOf	ns5:GeographicalOrigin ;
+	skos:definition	"internal request"@en .
+ns5:GeographicalOrigin	rdf:type	skos:ConceptScheme ;
+	ns4:created	"2016-02-01T11:19:21Z"^^xsd:dateTime .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+ns5:GeographicalOrigin	rdfs:label	"GeographicalOrigin"@en ;
+	ns4:creator	"codi"@en ;
+	ns4:publisher	"GSC"@en ;
+	ns4:subject	"Codi Taxonomies"@en .
+@prefix ns7:	<http://semantic-web.at/ontologies/csw.owl#> .
+ns5:GeographicalOrigin	ns7:hierarchyRoot	1 ;
+	ns7:hierarchyRootType	skos:ConceptScheme ;
+	ns4:title	"GeographicalOrigin"@en ;
+	ns4:description	"All taxonomies relevant for the Codi project"@en ;
+	skos:hasTopConcept	ns1:nnn ,
+		ns1:xxx .

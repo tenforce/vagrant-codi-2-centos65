@@ -1,0 +1,55 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns1:	<http://data.consilium.europa.eu/def/taxonomy/> .
+@prefix skos:	<http://www.w3.org/2004/02/skos/core#> .
+ns1:DocumentPublicationStatus	rdf:type	skos:ConceptScheme .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix ns4:	<http://purl.org/dc/terms/> .
+ns1:DocumentPublicationStatus	ns4:created	"2016-02-01T12:35:39Z"^^xsd:dateTime .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+ns1:DocumentPublicationStatus	rdfs:label	"DocumentPublicationStatus"@en ;
+	ns4:creator	"codi"@en ;
+	ns4:publisher	"GSC"@en ;
+	ns4:subject	"Codi Taxonomies"@en .
+@prefix ns6:	<http://semantic-web.at/ontologies/csw.owl#> .
+ns1:DocumentPublicationStatus	ns6:hierarchyRoot	1 ;
+	ns6:hierarchyRootType	skos:ConceptScheme ;
+	ns4:title	"DocumentPublicationStatus"@en ;
+	ns4:description	"All taxonomies relevant for the Codi project"@en ;
+	skos:hasTopConcept	<http://data.consilium.europa.eu/id/taxonomy/DocumentPublicationStatus/concept/partial%20access> .
+@prefix ns7:	<http://data.consilium.europa.eu/id/taxonomy/DocumentPublicationStatus/concept/> .
+ns1:DocumentPublicationStatus	skos:hasTopConcept	ns7:refused ,
+		ns7:public .
+ns7:refused	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T13:11:13Z"^^xsd:dateTime ;
+	ns4:modified	"2016-01-13T11:20:41Z"^^xsd:dateTime ;
+	rdfs:label	"non-accessible"@en ;
+	ns4:creator	"codi" .
+@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+ns7:refused	owl:deprecated	1 ;
+	ns4:contributor	"codi" ;
+	skos:notation	"REFUSED" ;
+	skos:prefLabel	"refused"@en ;
+	skos:topConceptOf	ns1:DocumentPublicationStatus ;
+	skos:definition	"This means that the contents of the document are not available to the public. The documents cannot be consulted nor downloaded."@en .
+ns7:public	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T13:10:18Z"^^xsd:dateTime ;
+	ns4:modified	"2016-01-13T11:20:33Z"^^xsd:dateTime ;
+	rdfs:label	"public"@en ;
+	ns4:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns4:contributor	"codi" ;
+	skos:notation	"PUBLIC" ;
+	skos:prefLabel	"public"@en ;
+	skos:topConceptOf	ns1:DocumentPublicationStatus ;
+	skos:definition	"This means that the public can have access to the full content of the document. Users can consult or download the document through the Council's public Register."@en .
+<http://data.consilium.europa.eu/id/taxonomy/DocumentPublicationStatus/concept/partial%20access>	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-02T13:11:05Z"^^xsd:dateTime ;
+	ns4:modified	"2016-01-13T11:20:51Z"^^xsd:dateTime ;
+	rdfs:label	"partially accessible"@en ;
+	ns4:creator	"codi" ;
+	owl:deprecated	1 ;
+	ns4:contributor	"codi" ;
+	skos:notation	"PARTIAL ACCESS" ;
+	skos:prefLabel	"partial access"@en ;
+	skos:topConceptOf	ns1:DocumentPublicationStatus ;
+	skos:definition	"This means that as a result of a request for access to documents, a previously non-public document was made partially available to the public. Users can consult or download the public parts of a partially accessible document through the Council's public register."@en .

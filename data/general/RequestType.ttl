@@ -1,0 +1,38 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns1:	<http://data.consilium.europa.eu/def/taxonomy/> .
+@prefix skos:	<http://www.w3.org/2004/02/skos/core#> .
+ns1:RequestType	rdf:type	skos:ConceptScheme .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix ns4:	<http://purl.org/dc/terms/> .
+ns1:RequestType	ns4:created	"2016-02-01T12:44:08Z"^^xsd:dateTime .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+ns1:RequestType	rdfs:label	"RequestType"@en ;
+	ns4:creator	"codi"@en ;
+	ns4:publisher	"GSC"@en ;
+	ns4:subject	"Codi Taxonomies"@en .
+@prefix ns6:	<http://semantic-web.at/ontologies/csw.owl#> .
+ns1:RequestType	ns6:hierarchyRoot	1 ;
+	ns6:hierarchyRootType	skos:ConceptScheme ;
+	ns4:title	"RequestType"@en ;
+	ns4:description	"All taxonomies relevant for the Codi project"@en .
+@prefix ns7:	<http://data.consilium.europa.eu/id/taxonomy/RequestType/concept/> .
+ns1:RequestType	skos:hasTopConcept	ns7:c ,
+		ns7:i .
+ns7:c	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-01T12:04:02Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-01T12:19:10Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"C" ;
+	skos:prefLabel	"confirmatory application"@en ;
+	skos:topConceptOf	ns1:RequestType ;
+	skos:definition	"A citizen can ask the Council to review the reply to an initial request given by the General Secretariat."@en .
+ns7:i	rdf:type	skos:Concept ;
+	ns4:created	"2015-12-01T12:03:48Z"^^xsd:dateTime ;
+	ns4:modified	"2015-12-01T12:19:16Z"^^xsd:dateTime ;
+	ns4:creator	"codi" ;
+	ns4:contributor	"codi" ;
+	skos:notation	"I" ;
+	skos:prefLabel	"initial request"@en ;
+	skos:topConceptOf	ns1:RequestType ;
+	skos:definition	"A citizen can address the General secretariat of the Council to request public access to one or several documents. Within the deadline of 15 working days, the General Secretariat of the Council replies, either by giving access to the requested document(s) or justifying its refusal"@en .

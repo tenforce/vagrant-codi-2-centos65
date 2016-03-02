@@ -8,8 +8,8 @@
     <head>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8"/>
         <title>data.consilium.europa.eu</title>
-        <link rel="stylesheet" href="/static/resources/fontawesome/css/font-awesome.min.css"/>
-        <link rel="stylesheet" href="/static/resources/css/style.css"/>
+        <link rel="stylesheet" href="/resources/fontawesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="/resources/css/style.css"/>
     </head>
     <body>       
         <jsp:include page="header.jsp" flush="true"/>

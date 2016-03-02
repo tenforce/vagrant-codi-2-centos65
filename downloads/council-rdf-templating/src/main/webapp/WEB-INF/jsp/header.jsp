@@ -8,7 +8,7 @@
 <div id="header">
     <div class="logo-wrapper">
         <div class="logo">
-            <img width="97" height="82" id="logo" src="/static/resources/images/logo.png" />
+            <img width="97" height="82" id="logo" src="/resources/images/logo.png" />
         </div>
         <div class="logo-slogan">
             <div class="title-h1 ec">European Council</div>

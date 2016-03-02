@@ -40,7 +40,7 @@
                                             <a href="${predicate.key}">${predicate.key}</a>
                                         <c:set var="headerWritten" value="true"/>
                                     </c:if>                                
-                                    <div class="object" property="${predicate.key}" content="${object.stringValue()}">${object.stringValue()}</div>
+                                    <div class="object" property="${predicate.key}" content="${object.stringValue().replace("\"","%22")}">${object.stringValue()}</div>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>

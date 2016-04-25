@@ -42,7 +42,7 @@
                             </a>
                         </c:when>
                         <c:otherwise>
-                            <a class="meeting-button backto" href="http://www.consilium.europa.eu/en/documents-publications/">
+                            <a class="meeting-button backto" href="http://www.consilium.europa.eu/en/general-secretariat/corporate-policies/transparency/open-data/">
                                 <span class="hide-mobile">Back to overview</span>
                             </a>
                         </c:otherwise>
